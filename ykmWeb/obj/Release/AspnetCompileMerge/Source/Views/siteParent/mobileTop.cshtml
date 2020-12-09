@@ -1,0 +1,50 @@
+﻿<div id="header" class="wyc_header">
+    <img src="/web_images/h5/header.jpg" alt="" class="headtu" />
+    <img src="/web_images/h5/wyc_menu.jpg" alt="" class="menu" />
+    <a href="tel:@ViewBag.tel"><img src="/web_images/h5/wyc_phone.jpg" alt="" class="phone" /></a>
+</div>
+<div id="daoh" class="wyc_daoh">
+    <ul class="parents">
+        @Html.Raw(ViewBag.topmenu)
+        <li class="nLi"><a href="javascript:;">ENGLISH</a></li>
+        <li class="nLi close"><a href="javascript:;">关闭导航</a></li>
+    </ul>
+    <div class="bg"></div>
+    <div class="bg1"></div>
+</div>
+<script type="text/javascript">
+    $("#header .menu").click(function () {
+        $("#daoh").toggle();
+    })
+    $("#daoh .nLi").click(function () {
+        $(this).addClass("on").siblings().removeClass("on");
+        $(this).children(".sub").show().parents(".nLi").siblings().children(".sub").hide();
+        $(this).siblings().children(".sub").hide();
+
+        if ($("#daoh .nLi .sub").is(":visible")) {
+            $("#daoh .bg").css("display", "block");
+        }
+        else if ($("#daoh .nLi .sub").is(":hidden")) {
+            $("#daoh .bg").css("display", "none");
+        }
+    })
+    $("#daoh .nLi .sub li").click(function () {
+        $(this).addClass("childon").siblings().removeClass("childon");
+        $(this).children(".sub1").show().parents("Li").siblings().children(".sub1").hide();
+        $(this).siblings().children(".sub1").hide();
+
+        if ($("#daoh .nLi .sub .sub1").is(":visible")) {
+            $("#daoh .bg1").css("display", "block");
+        }
+        else if ($("#daoh .nLi .sub .sub1").is(":hidden")) {
+            $("#daoh .bg1").hide();
+        }
+    })
+    $("#daoh .nLi .sub li .sub1 li").click(function () {
+        $(this).addClass("childon1").siblings().removeClass("childon1");
+    })
+    $("#daoh .close").click(function () {
+        $("#daoh").hide();
+    })
+</script>
+

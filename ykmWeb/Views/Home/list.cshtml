@@ -1,0 +1,73 @@
+﻿@model ykmWeb.Models.pageNewlist
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    @Html.Raw(Model.seostr)
+    <link rel="stylesheet" href="/web_css/base.css" />
+    <link rel="stylesheet" href="/web_css/list.css" />
+    <link rel="stylesheet" href="~/css/index.css" />
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="/web_js/jquery.SuperSlide.2.1.1.js"></script>
+    <script src="~/layer/layer.js"></script>
+    <script src="~/Scripts/sandcheckform.js"></script>
+</head>
+<body>
+    <div class="pc">
+        <!--顶部-->
+        @{
+            Html.RenderAction("top", "siteParent", new { cid = ViewBag.cid, t = "index" });
+        }
+        <!--内容-->
+        <div class="pc_content">
+            <div class="pc_box">
+                <div class="list_content">
+                    <div class="left_daoh">
+                        @Html.Raw(ViewBag.leftmenu)
+                    </div>
+                    <div class="right_content">
+                        <!--面包屑-->
+                        <div class="path">
+                            <div class="fst24 fw-bold" style="color: black;margin-left: 0.2rem;">@ViewBag.classtitle</div>
+                            <div>
+                                您当前的位置：@Html.Raw(Model.path)
+                            </div>
+                        </div>
+                        <!--所选栏目-->
+                        @if (ViewBag.list_type!="cont") {
+                            @*<div class="suoxuan_lanmu">@ViewBag.classtitle</div>*@ 
+                        }
+                        @Html.Raw(Model.listHtml)
+                        @Html.Raw(Model.PageFootHtml)
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--底部-->
+        @{
+            Html.RenderAction("boot", "siteParent", new { cid = ViewBag.cid });
+        }
+    </div>
+    <div class="sj">
+        <div class="viewport index sj">
+            @{
+                Html.RenderAction("h5_top_list", "siteParent", new { cid = ViewBag.cid });
+            }
+            @Html.Raw(Model.mobi_child_str)
+            @Html.Raw(Model.mobi_child_str1)
+            <div class="content">
+                @Html.Raw(Model.listHtml_sj)
+                @Html.Raw(Model.PageFootHtml)
+            </div>
+
+            <!--底部版权-->
+            @{
+                Html.RenderAction("h5_bot", "siteParent", new { cid = ViewBag.cid });
+            }
+        </div>
+    </div>
+</body>
+</html>
+<sc

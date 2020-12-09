@@ -1,0 +1,243 @@
+﻿@model ykmWeb.Models.info
+@{ 
+    ykmWeb.Dal.Serv.DalMenuClass dmc = new ykmWeb.Dal.Serv.DalMenuClass(new ykmWeb.Dal.ykmWebDbContext());
+}
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit" />
+    <title>网站后台管理系统</title>
+    <link rel="shortcut icon" href="/img/favicon.ico">
+    <link href="/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <!-- Morris -->
+    <link href="/css/plugins/morris/morris-0.4.3.min.css" rel="stylesheet">
+    <!-- Gritter -->
+    <link href="/js/plugins/gritter/jquery.gritter.css" rel="stylesheet">
+    <link href="/css/animate.css" rel="stylesheet">
+    <link href="/css/style.css?v=4.1.0" rel="stylesheet">
+
+
+
+    <link href="/bootstrap/datetimepicker/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css">
+    <link href="/css/index.css" rel="stylesheet" type="text/css">
+    <script src="/Scripts/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/yljwebpageedit/ueditor.config.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/yljwebpageedit/ueditor.all.min.js"></script>
+    <script src="/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="/bootstrap/datetimepicker/bootstrap-datetimepicker.min.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="/bootstrap/datetimepicker/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+
+    <!--表单验证 -->
+    <script type="text/javascript" src="/bootstrap/Val/bootstrapValidator.min.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="/bootstrap/Val/language/zh_CN.js" charset="UTF-8"></script>
+    <link rel="stylesheet" type="text/css" href="/bootstrap/Val/bootstrapValidator.min.css">
+    <script src="/bootstrap/Val/Validator_form.js"></script>
+    <!--文件上传 -->
+    <script src="~/bootstrap/upfiles/fileinput.min.js"></script>
+    <script src="~/bootstrap/upfiles/zh.js"></script>
+    <link href="~/bootstrap/upfiles/fileinput.min.css" rel="stylesheet" />
+    <script src="~/bootstrap/upfiles/upfilesCtrl.js"></script>
+    <script src="~/Scripts/upload_info_ctrl.js"></script>
+    <!--上传附件，自定义文件-->
+    @*<script src="~/bootstrap/upfiles/userUpfilesCtrl.js"></script>
+    <script src="~/Scripts/upload_files_ctrl.js"></script>*@
+    @*<link rel="stylesheet" type="text/css" href="/web_css/upload_files_ctrl.css">*@
+
+    <script src="~/Scripts/user_main_nclass.js"></script>
+
+    <!-- 打开窗口 -->
+    <script src="~/Scripts/ctrl_form_add.js"></script>
+    <script src="~/layer/layer.js"></script>
+</head>
+<body class="gray-bg">
+
+    <div class="wrapper wrapper-content">
+        <div class="form-horizontal">
+            @using (Html.BeginForm("update", "InfoList", FormMethod.Post, new { id = "form1", name = "form1" }))
+            {
+                @Html.AntiForgeryToken()
+                <input type="hidden" value="h5" name="show" id="show" />
+                <input type="hidden" value="procont" name="pagetype" id="pagetype" />
+                <input type="hidden" value="@ViewBag.savetype" name="savetype" id="savetype" />
+                <input type="hidden" value="@Model.id" name="id" id="id" />
+
+                <div class="ibox-content overf m-b flex flex-align-center">
+                    <div class="col-sm-4 h4">
+                        <b>产品添加</b>
+                    </div>
+                    <div class="col-sm-8 flex flex-end flex-align-center">
+                        <label class="m-r">
+                            <input type="checkbox" @(Model.issame == 1 ? "checked" : "") onclick="javascript:document.getElementById('issame').value=(this.checked)?1:0;">  PC/手机 两端同步
+                            <input name="issame" type="hidden" value="@Model.issame" id="issame">
+                        </label>
+                        <a href="javascript:;" onclick="getCont()" id="showBtn" class="btn btn-primary">切换手机端</a>
+                    </div>
+                </div>
+
+                <div class="ibox-content overf m-b">
+                    <div class="h4"><b>基础信息添加</b></div>
+                    <div class="form-group flex flex-align-center">
+                        <label for="title" class="col-sm-1">标题名称</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" id="title"
+                                   name="title" placeholder="请输入标题名称" value="@Model.title" required data-bv-notempty-message="标题名称不能为空！">
+                        </div>
+                        @*<label for="price" class="col-sm-1">价格</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" id="price"
+                                   name="price" placeholder="请输入产品价格" value="@Model.price" required data-bv-notempty-message="产品价格不能为空！">
+                        </div>*@
+                        <label for="classid" class="col-sm-1">所属栏目</label>
+                        <div class="col-sm-3">
+                            <div class="input-group">
+                                <input type="hidden" name="classid" id="classid" value="@Model.classid" />
+                                <input type="text" class="form-control" id="classname" readonly
+                                       name="classname" placeholder="请选择栏目" value="@dmc.getCatalogName(Model.classid.Value)">
+                                <span class="input-group-btn">
+                                    @*<button type="button" class="btn btn-default" id="btn1" name="btn1" onclick="show1()">打开分类</button>*@
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="ibox-content overf m-b">
+                    <div class="h4"><b>上传图片</b></div>
+                    <div class="form-group flex flex-align-center">
+                        <div class="col-sm-12 p-m">
+                            <div class="m-b">
+                                <label for="txt_file">上传新文件</label>
+                                <input type="file" name="txt_file" id="txt_file" multiple class="file-loading" />
+                            </div>
+                            <div class="m-b">
+                                <label for="txt_file">已上传文件</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon">默认显示</span>
+                                    <input type='text' name="defaultpic" id="defaultpic" class="form-control" value="@Model.defaultpic" />
+                                    <input type='hidden' name="uploadfiles" id="uploadfiles" value="@Model.uploadfiles" />
+                                </div>
+                            </div>
+                            <div class="listimg" id="lisgimg"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ibox-content overf m-b">
+                    <div class="h4"><b>编辑内容</b></div>
+                    <div class="form-group flex flex-align-center">
+                        <div id="pc" class="col-sm-12 p-m">
+                            <textarea name="cont" id="cont" style="width:100%; height:300px">@Model.cont</textarea>
+                            <script>
+                                var ue = UE.getEditor('cont');
+                            </script>
+                        </div>
+
+                        <div id="h5" class="col-sm-12 p-m none">
+                            <textarea name="h5cont" id="h5cont" style="width:100%; height:300px">@Model.h5cont</textarea>
+                            <script>
+                                var ue = UE.getEditor('h5cont');
+                            </script>
+                        </div>
+                    </div>
+                </div>
+                <div class="ibox-content overf m-b">
+                    <div class="h4"><b>上架显示</b></div>
+                    <div class="form-group flex flex-align-center">
+                        <label for="infodate" class="col-sm-1">发布日期</label>
+                        <div class="col-sm-3">
+                            <div class='input-group date' id='datetimepicker1' data-date-format="yyyy-mm-dd">
+                                <input type='text' name="insertdate" id="insertdate" value="@Model.insertdate.Value.ToString("yyyy-MM-dd")" class="form-control" readonly required data-bv-notempty-message="请选择发布日期！" />
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                        </div>
+                        <label for="title" class="col-sm-1">信息排序</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" id="sorts"
+                                   name="sorts" placeholder="排序" value="@Model.sorts" required data-bv-notempty-message="信息排序不能为空！" pattern="^[0-9]+$" data-bv-regexp-message="信息排序必须是整数">
+                        </div>
+                        <label for="infodate" class="col-sm-1">设置置顶</label>
+                        <div class="col-sm-3">
+                            <select name="istop" id="istop" class="form-control" data-bv-notempty data-bv-notempty-message="请选择是否置顶！">
+                                <option value="">请选择</option>
+                                <option value="1" @(Model.istop == 1 ? "selected" : "")>置顶</option>
+                                <option value="0" @(Model.istop == 0 ? "selected" : "")>不置顶</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-horizontal">
+                    <div class="form-group mtop1">
+                        <div class=" col-sm-12 tc">
+                            <button type="submit" class="btn btn-primary">全部提交</button>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+    <script>
+        var u = new shownr();
+        u.init("defaultpic", "uploadfiles", "lisgimg");
+        u.show_img("");
+
+        function instrut(f) {
+            u.show_img(f);
+        }
+
+        $('#datetimepicker1').datetimepicker({
+            language: 'zh-CN',
+            weekStart: 1,
+            todayBtn: 1,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 2,
+            minView: 2,
+            forceParse: 0
+        });
+
+        //var mc = new main_class_nclass();
+        //function set_class(cid, text, t) {
+        //    if (t == "c") {
+        //        $("#classid").val(cid);
+        //        $("#classname").val(text);
+        //    }
+        //    mc.info_hide_class();
+        //}
+
+        //function show1() {
+        //    mc.viewpagename = "menuClassList";
+        //    mc.info_list_class("c","info");
+        //}
+
+        $(document).ready(function () {
+            var s = new Valform();
+            s.check("form1", true);
+            var oFileInput = new FileInput();
+            oFileInput.Init("txt_file", instrut);
+        });
+
+        function getCont() {
+            var s = $("#show").val();
+            if (s == "h5") {
+                $("#h5").show();
+                $("#pc").hide();
+                $("#show").val("pc");
+                $("#showBtn").text("切换PC端")
+            }
+            else {
+                $("#pc").show();
+                $("#h5").hide();
+                $("#show").val("h5");
+                $("#showBtn").text("切换手机端")
+            }
+        }
+
+    </script>
+
+</body>
+</html>

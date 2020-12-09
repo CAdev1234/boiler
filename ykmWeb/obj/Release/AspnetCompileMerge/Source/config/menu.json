@@ -1,0 +1,86 @@
+//fa图标
+[
+  {
+    "id": "1",
+    "mname": "网站栏目管理",
+    "url": "/management/menuClassList/menulist",
+    "ico": "fa-desktop"
+  },
+  {
+    "id": "2",
+    "mname": "网站信息管理",
+    "url": "/management/infolist/index",
+    "ico": "fa-cubes"
+  },
+  {
+    "id": "3",
+    "mname": "banner管理",
+    "url": "/management/ggwlist/index",
+    "ico": "fa-picture-o"
+  },
+  {
+    "id": "4",
+    "mname": "友情链接管理",
+    "url": "/management/link/list",
+    "ico": "fa-link"
+  },
+  {
+    "id": "5",
+    "mname": "网站基础信息管理",
+    "url": "/management/siteSeoList/index",
+    "ico": "fa-th-large"
+  },
+  {
+    "id": "6",
+    "mname": "管理员管理",
+    "url": "/management/webmaster/index",
+    "ico": "fa-lock",
+    "child": [
+      {
+        "id": "6_1",
+        "mname": "管理员列表",
+        "url": "/management/webmaster/index",
+        "ico": ""
+      },
+      {
+        "id": "6_2",
+        "mname": "修改密码",
+        "url": "/management/webmaster/pass",
+        "ico": ""
+      },
+      {
+        "id": "6_3",
+        "mname": "退出登录",
+        "url": "/management/webmaster/layout",
+        "ico": "",
+        "target": "_self"
+      }
+    ]
+  }
+  //{
+  //  "id": "99",
+  //  "mname": "语言版本",
+  //  "url": "/management/webmaster/defaultmain",
+  //  "ico": "fa-lock",
+  //  "child": [
+  //    {
+  //      "id": "99_1",
+  //      "mname": "中文版",
+  //      "url": "/management/webmaster/defaultmain?lang=cn",
+  //      "ico": "",
+  //      "target": "_self"
+  //    },
+  //    {
+  //      "id": "99_2",
+  //      "mname": "英文版",
+  //      "url": "/management/webmaster/defaultmain?lang=en",
+  //      "ico": "",
+  //      "target": "_self"
+  //    }
+  //  ]
+  //}
+]
+
+
+
+

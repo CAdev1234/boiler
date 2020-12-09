@@ -1,0 +1,2 @@
+E:\YKM\后台\z中航旅行社\www\sysHtml\obj\Debug\sysHtml.csprojAssemblyReference.cache
+E:\YKM\后台\z中航旅行社\www\sysHtml\obj\Debug\sysHtml.csproj.CoreCompileInputs.cache

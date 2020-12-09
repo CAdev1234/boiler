@@ -1,0 +1,80 @@
+﻿@model ykmWeb.Models.pageNewlist
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    @Html.Raw(ViewBag.seostr)
+    <link rel="stylesheet" href="/web_css/base.css" />
+    <link rel="stylesheet" href="/web_css/list.css" />
+    <script type="text/javascript" src="~/web_js/search_h5.js"></script>
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="/web_js/jquery.SuperSlide.2.1.1.js"></script>
+    <script src="~/layer/layer.js"></script>
+    <script src="~/Scripts/sandcheckform.js"></script>
+</head>
+<body>
+    <div class="pc">
+        <!--顶部-->
+        @{
+            Html.RenderAction("top", "siteParent", new { cid = ViewBag.cid, t = "index" });
+        }
+        <!--内容-->
+        <div class="pc_content">
+            <div class="pc_box">
+                <div class="list_content">
+                    <div class="left_daoh">
+                        <div class="title">信息搜索</div>
+                        <div class="yiji">
+                            <ul>
+                                <li class="on">
+                                    <a href="#"><div class="tit" style="margin-bottom:1px;">信息搜索</div></a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="lxwm">
+                            <div class="tit">24小时全国统一热线</div>
+                            <div class="tel">@ViewBag.tel</div>
+                            <div class="btn"><a href="@ViewBag.ljwm_url">联系我们</a></div>
+                        </div>
+                    </div>
+                    <div class="right_content">
+                        <!--面包屑-->
+                        <div class="path">您当前的位置：<a href="/">网站首页</a> - 信息搜索</div>
+                        <!--所选栏目-->
+                        <div class="suoxuan_lanmu">信息搜索</div>
+                        @Html.Raw(Model.listHtml)
+                        @Html.Raw(Model.PageFootHtml)
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--底部-->
+        @{
+            Html.RenderAction("boot", "siteParent", new { cid = ViewBag.cid });
+        }
+    </div>
+    <div class="sj">
+        <div class="viewport index sj">
+            @{
+                Html.RenderAction("h5_top_list", "siteParent", new { cid = ViewBag.cid });
+            }
+            <div class="sjsearch_box">
+                <div class="search_box">
+                    <input id="key_sj" name="key_sj" type="text" placeholder="搜索">
+                    <div class="btn"><a href="javascript:;" onclick="searchthis_sj()"><img src="/web_images/pc_btn_03.jpg"></a></div>
+                </div>
+            </div>
+            <div class="content">
+                @Html.Raw(Model.listHtml_sj)
+                @Html.Raw(Model.PageFootHtml)
+            </div>
+
+            <!--底部版权-->
+            @{
+                Html.RenderAction("h5_bot", "siteParent", new { cid = ViewBag.cid });
+            }
+        </div>
+    </div>
+</body>
+</html>

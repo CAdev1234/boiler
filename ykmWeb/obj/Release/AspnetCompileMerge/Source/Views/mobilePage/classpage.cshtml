@@ -1,0 +1,32 @@
+﻿@model ykmWeb.Models.pageMobi
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    @Html.Raw(Model.seostr)
+    <link rel="stylesheet" href="/web_css/h5/list.css" />
+    <link rel="stylesheet" href="/web_css/h5/base.css" />
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/web_js/search_h5.js"></script>
+</head>
+<body>
+    <div class="viewport index">
+        <!--头部-->
+        @{
+            Html.RenderAction("mobileTop", "siteParent", new { cid = ViewBag.cid });
+        }
+        <!--位置-->
+        <div class="weizhi">@Html.Raw(Model.path)</div>
+        <!--军民项目对接-->
+        <div class="docking">
+            <div class="title"><h2>军民项目对接</h2><div class="eng">Docking of Military Civil Projects</div></div>
+            @Html.Raw(Model.strHtml["pagelist"])
+        </div>
+        <!--底部-->
+        @{
+            Html.RenderAction("mobileBot", "siteParent", new { dqcid = ViewBag.cid });
+        }
+    </div>
+</body>
+</html>

@@ -1,0 +1,14 @@
+﻿<div class="daohang">
+    <div class="daoh_box">
+        @Html.Raw(ViewBag.botmenu)
+    </div>
+    <div class="txtxx">
+        @Html.Raw(ViewBag.botinfo)
+    </div>
+    <div class="banquan">
+        @ViewBag.copyinfo       <a href="@ViewBag.icpurl" target="_blank">@ViewBag.icpinfo</a><br />
+        <span><a href="http://www.yalujiang.cn/" target="_blank">Yalu River Network Technology Support</a> </span>
+    </div>
+</div>
+<div class="calling"><a href="tel:@ViewBag.tel"><img src="/web_images/h5/phone_en.png" /></a></div>
+<script src="/web_js/bot.js"></script>

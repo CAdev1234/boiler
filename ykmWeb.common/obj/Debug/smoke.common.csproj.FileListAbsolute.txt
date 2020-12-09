@@ -1,0 +1,16 @@
+E:\terodde\newwork\y烟草\soft\smoke\smoke.common\bin\Debug\smoke.common.dll
+E:\terodde\newwork\y烟草\soft\smoke\smoke.common\bin\Debug\smoke.common.pdb
+E:\terodde\newwork\y烟草\soft\smoke\smoke.common\bin\Debug\ChnCharInfo.dll
+E:\terodde\newwork\y烟草\soft\smoke\smoke.common\bin\Debug\ThoughtWorks.QRCode.dll
+E:\terodde\newwork\y烟草\soft\smoke\smoke.common\obj\Debug\smoke.common.csprojAssemblyReference.cache
+E:\terodde\newwork\y烟草\soft\smoke\smoke.common\obj\Debug\smoke.common.csproj.CoreCompileInputs.cache
+E:\terodde\newwork\y烟草\soft\smoke\smoke.common\obj\Debug\smoke.common.csproj.CopyComplete
+E:\terodde\newwork\y烟草\soft\smoke\smoke.common\obj\Debug\smoke.common.dll
+E:\terodde\newwork\y烟草\soft\smoke\smoke.common\obj\Debug\smoke.common.pdb
+E:\terodde\newwork\f风光无限\www\smoke.common\bin\Debug\smoke.common.dll
+E:\terodde\newwork\f风光无限\www\smoke.common\bin\Debug\smoke.common.pdb
+E:\terodde\newwork\f风光无限\www\smoke.common\obj\Debug\smoke.common.csprojAssemblyReference.cache
+E:\terodde\newwork\f风光无限\www\smoke.common\obj\Debug\smoke.common.csproj.CoreCompileInputs.cache
+E:\terodde\newwork\f风光无限\www\smoke.common\obj\Debug\smoke.common.csproj.CopyComplete
+E:\terodde\newwork\f风光无限\www\smoke.common\obj\Debug\smoke.common.dll
+E:\terodde\newwork\f风光无限\www\smoke.common\obj\Debug\smoke.common.pdb

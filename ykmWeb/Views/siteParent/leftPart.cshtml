@@ -1,0 +1,47 @@
+﻿@model ykmWeb.Models.pageLeftModel
+<div class="aside_name">
+  @Html.Raw(Model.leftMenuHtml)  
+</div>
+<div class="aside_news">
+    <h2>最新资讯</h2>
+    <div id="slideBox" class="slideBox">
+        <div class="hd">
+            <ul>
+                @foreach (var o in Model.lbt)
+                {
+                    <li></li>
+                }
+
+            </ul>
+        </div>
+        <div class="bd">
+            <ul>
+                @foreach (var o in Model.lbt)
+                {
+                    <li><a href="/cont?id=@o.id" target="_blank"><img src="@o.defaultpic" /></a></li>
+                }
+
+            </ul>
+        </div>
+    </div>
+    <script type="text/javascript">
+                            jQuery(".slideBox").slide({ mainCell: ".bd ul", autoPlay: true });
+    </script>
+    <ul class="newslist">
+        @foreach (var o in Model.zxzx)
+        {
+            <li><a href="/cont?id=@o.id">@ykmWeb.common.common.dtitle(o.title,o.ftitle)</a></li>
+        }
+    </ul>
+</div>
+<div class="aside_menu">
+    <h2>便捷菜单</h2>
+    <ul>
+        <li><a href="javascript:;"><img src="images/menu1.jpg" alt="" /><div class="txt">在线学习</div></a></li>
+        <li><a href="javascript:;"><img src="images/menu2.jpg" alt="" /><div class="txt">集中学习</div></a></li>
+        <li><a href="javascript:;"><img src="images/menu3.jpg" alt="" /><div class="txt">交流心得</div></a></li>
+        <li><a href="javascript:;"><img src="images/menu4.jpg" alt="" /><div class="txt">热心建议</div></a></li>
+        <li><a href="javascript:;"><img src="images/menu5.jpg" alt="" /><div class="txt">诉求小站</div></a></li>
+        <li><a href="javascript:;"><img src="images/menu6.jpg" alt="" /><div class="txt">党建考核</div></a></li>
+    </ul>
+</div>

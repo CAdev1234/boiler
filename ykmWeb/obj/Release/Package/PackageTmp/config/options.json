@@ -1,0 +1,13 @@
+[
+  {
+    "type": "dining_mode",
+    "key": "店内就餐",
+    "value": "店内就餐"
+  },
+  {
+    "type": "dining_mode",
+    "key": "打包外带",
+    "value": "打包外带"
+  }
+
+]

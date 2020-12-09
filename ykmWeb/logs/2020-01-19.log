@@ -1,0 +1,16 @@
+2020-01-19 09:08:36.074 ERROR WxPayAPI.WxPayData: WxPayData内部含有值为null的字段!
+2020-01-19 09:28:23.174 ERROR WxPayAPI.WxPayData: WxPayData内部含有值为null的字段!
+2020-01-19 09:40:05.496 ERROR WxPayAPI.WxPayData: WxPayData内部含有值为null的字段!
+2020-01-19 14:20:02.719 DEBUG WxPayApi: UnfiedOrder request : <xml><appid><![CDATA[wx9047c5696905fdbd]]></appid><attach><![CDATA[订单]]></attach><body><![CDATA[江城点餐购买商品订单]]></body><goods_tag><![CDATA[test]]></goods_tag><mch_id><![CDATA[1237625102]]></mch_id><nonce_str><![CDATA[fa9f1ddef3164ce6b8b401a28803fe77]]></nonce_str><notify_url><![CDATA[https://a12q.ddtl.cn/wxpay/orderget]]></notify_url><openid><![CDATA[o4yig4mUxTkkdRwLri5-8kmGZ4jk]]></openid><out_trade_no><![CDATA[68F76371504038096374261]]></out_trade_no><sign><![CDATA[697CE9B1BEA063AE4742DD4921C33902]]></sign><spbill_create_ip><![CDATA[]]></spbill_create_ip><time_expire><![CDATA[20200119143002]]></time_expire><time_start><![CDATA[20200119142002]]></time_start><total_fee>12300</total_fee><trade_type><![CDATA[JSAPI]]></trade_type></xml>
+2020-01-19 14:20:03.293 DEBUG WxPayApi: UnfiedOrder response : <xml><return_code><![CDATA[SUCCESS]]></return_code>
+<return_msg><![CDATA[OK]]></return_msg>
+<appid><![CDATA[wx9047c5696905fdbd]]></appid>
+<mch_id><![CDATA[1237625102]]></mch_id>
+<nonce_str><![CDATA[cP5EfAd1rWJZE576]]></nonce_str>
+<sign><![CDATA[1F2FE2FC9562E06406D84CDC3DBF6988]]></sign>
+<result_code><![CDATA[SUCCESS]]></result_code>
+<prepay_id><![CDATA[wx19142004476408e9d30cd9e91489449300]]></prepay_id>
+<trade_type><![CDATA[JSAPI]]></trade_type>
+</xml>
+2020-01-19 14:20:04.784 DEBUG WxPayAPI.JsApiPay: JsApiPay::GetJsApiParam is processing...
+2020-01-19 14:20:04.804 DEBUG WxPayAPI.JsApiPay: Get jsApiParam : {"appId":"wx9047c5696905fdbd","nonceStr":"e808eb9060a14b14865672f79723fba2","package":"prepay_id=wx19142004476408e9d30cd9e91489449300","paySign":"A50CCDD32F8CF7A501BC46502B5AF39E","signType":"MD5","timeStamp":"1579414805"}

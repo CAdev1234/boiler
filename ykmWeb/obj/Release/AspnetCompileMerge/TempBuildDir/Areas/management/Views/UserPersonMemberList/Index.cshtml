@@ -1,0 +1,200 @@
+﻿@model List<ykmWeb.Models.ViewUserPerMem>
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit" />
+    <title>网站后台管理系统</title>
+    <link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap-theme.min.css">
+    <link href="/css/index.css" rel="stylesheet" type="text/css">
+    <script src="/Scripts/jquery-1.10.2.min.js"></script>
+
+    <script src="/Scripts/menu.js"></script>
+    <!--日期控件 -->
+    <link href="/bootstrap/datetimepicker/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css">
+    <script src="/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="/bootstrap/datetimepicker/bootstrap-datetimepicker.min.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="/bootstrap/datetimepicker/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+
+    <script src="~/Scripts/user_main_nclass.js"></script>
+    <script src="~/layer/layer.js"></script>
+    <script src="~/Scripts/batch_ctrl.js"></script>
+</head>
+<body>
+
+    @{
+        Html.RenderAction("toppart", "TopPart");
+    }
+
+    <div class="main">
+        <div class="mainw">
+            <div class="leftpar">
+                <span class="mdate" id="showtime"></span>
+                <script src="~/Scripts/dateshow.js"></script>
+            </div>
+            <div class="rightpar">
+                <div class="menuright">
+                    @{
+                        Html.RenderAction("showtopmenu", "topmenu", new { id = "7", cid = "3" });
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="main2">
+        <div class="mainw">
+            <div class="leftpar">
+                @{
+                    Html.RenderAction("listleftMenu", "leftpart");
+                }
+            </div>
+            <div class="rightpar">
+                <div class="wpadd2">
+                    <div class="listbox">
+                        <form action="" method="get" name="form1" id="form1">
+                            <input type="hidden" name="cid" id="cid" />
+                            <div class="cont">
+                                <div class="form-horizontal">
+                                    <div class="form-group">
+                                        <label for="key" class="col-sm-2 ">姓名</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" id="key"
+                                                   name="key" placeholder="姓名" value="">
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="title" class="col-sm-2 ">入党时间</label>
+                                        <div class="col-sm-4">
+                                            <div class='input-group date' id='datetimepicker1' data-date-format="yyyy-mm-dd">
+                                                <input type='text' name="sdata" id="sdata" value="" class="form-control" readonly />
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-1 tc">至</div>
+                                        <div class="col-sm-4">
+                                            <div class='input-group date' id='datetimepicker2' data-date-format="yyyy-mm-dd">
+                                                <input type='text' name="edata" id="edata" value="" class="form-control" readonly />
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-12 tc"><button class="btn btn-success">开始查询</button></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+
+                </div>
+                <div class="wpadd2">
+
+                    <div class="listbox">
+                        <div class="cont">
+
+                            <h4 class="title left">所有信息( @ViewBag.infocount 条）</h4>
+                            <div class="form-group  right">
+                                <a href="/management/UserPersonMemberList/edit" class="btn btnstyle1">添加</a>
+                            </div>
+                            <div class="w100 left bor2 ">
+                                <div class="tabst1">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th width="20%">党员照片</th>
+                                                <th width="10%">姓名</th>
+                                                <th width="10%">入党时间</th>
+                                                <th width="10%">党龄</th>
+                                                <th width="15%">党内职务</th>
+                                                <th width="15%">党外职务</th>
+                                                <th width="20%">设置</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var i in Model)
+                                            {
+                                         
+                                                <tr>
+                                                    <td><img src="@i.Photo"   style="width:100px;" /></td>
+                                                    <td>
+                                                        @i.name
+                                                    </td>
+                                                    <td>@i.JoinPartyDate.Value.ToString("D")</td>
+                                                    <td>@i.JoinEga</td>
+                                                    <td>@i.PartyPosition</td>
+                                                    <td>@i.OutPosition</td>
+                                                    <td>
+                                                        <div class="myedit">
+                                                            <div>
+                                                                <span class=" glyphicon glyphicon-edit"></span>
+                                                                @Html.ActionLink("编辑", "edit", new { id = i.id })
+                                                            </div>
+                                                            <ul>
+                                                                <li>@Html.ActionLink("编辑", "edit", new { id = i.id })</li>
+                                                                <li>@Html.ActionLink("删除", "del", new { id = i.id }, new { onclick = "return confirm('确定要删除吗？')" })</li>
+                                                                @{
+                                                                    if (i.uid == 0)
+                                                                    {
+                                                                        <li>@Html.ActionLink("绑定会员账号", "bindUser", new { id = i.id })</li>
+                                                                    }
+                                                                }
+                                                            </ul>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="footpage">
+                                    @Html.Raw(ViewBag.footpage)
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="botbox left w100 mtop1">
+        <div class="bot">
+            <script src="~/Scripts/htbot.js"></script>
+        </div>
+    </div>
+    <script>
+        $('#datetimepicker1').datetimepicker({
+            language: 'zh-CN',
+            weekStart: 1,
+            todayBtn: 1,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 2,
+            minView: 2,
+            forceParse: 0
+        });
+
+        $('#datetimepicker2').datetimepicker({
+            language: 'zh-CN',
+            weekStart: 1,
+            todayBtn: 1,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 2,
+            minView: 2,
+            forceParse: 0
+        });
+
+
+    </script>
+
+
+</body>
+</html>

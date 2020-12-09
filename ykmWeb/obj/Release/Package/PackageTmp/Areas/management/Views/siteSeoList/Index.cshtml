@@ -1,0 +1,141 @@
+﻿@model ykmWeb.Models.siteseo
+
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit" />
+    <title>网站后台管理系统</title>
+    <link rel="shortcut icon" href="/img/favicon.ico">
+    <link href="/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <!-- Morris -->
+    <link href="/css/plugins/morris/morris-0.4.3.min.css" rel="stylesheet">
+    <!-- Gritter -->
+    <link href="/js/plugins/gritter/jquery.gritter.css" rel="stylesheet">
+    <link href="/css/animate.css" rel="stylesheet">
+    <link href="/css/style.css?v=4.1.0" rel="stylesheet">
+
+    <script src="/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="/js/uploadstobase64.js"></script>
+    <link href="/css/index.css" rel="stylesheet" type="text/css">
+
+
+
+
+    <link href="/css/index.css" rel="stylesheet" type="text/css">
+    <script src="/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+
+
+    <!--表单验证 -->
+    <script type="text/javascript" src="/bootstrap/Val/bootstrapValidator.min.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="/bootstrap/Val/language/zh_CN.js" charset="UTF-8"></script>
+    <link rel="stylesheet" type="text/css" href="/bootstrap/Val/bootstrapValidator.min.css">
+    <script src="/bootstrap/Val/Validator_form.js"></script>
+
+
+    <script src="~/layer/layer.js"></script>
+</head>
+<body class="gray-bg">
+    <div class="wrapper wrapper-content">
+        <div class="listbox">
+            <div class="cont">
+                @using (Html.BeginForm("update", "siteSeoList", FormMethod.Post, new { id = "form2", name = "form2" }))
+                {
+                    <input type="hidden" value="@ViewBag.savetype" name="savetype" id="savetype" />
+                    <input type="hidden" value="@Model.id" name="id" id="id" />
+                    <input type="hidden" value="@ViewBag.lang" name="lang" id="lang" />
+                    <div class="form-horizontal ibox-content p-md m-b">
+                        <div class="form-group">
+                            <label for="sitename" class="col-sm-2">网站名称</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="sitename" name="sitename" value="@Model.sitename" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="sitetitle" class="col-sm-2">网站Title</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="sitetitle" name="sitetitle" value="@Model.sitetitle" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="sitekeyword" class="col-sm-2">SEO关键词</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="sitekeyword" name="sitekeyword" value="@Model.sitekeyword" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="sitedesc" class="col-sm-2">SEO描述</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="sitedesc" name="sitedesc" value="@Model.sitedesc" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="botinfo" class="col-sm-2">网站底部联系方式</label>
+                            <div class="col-sm-10">
+                                <textarea class="form-control" id="botinfo" name="botinfo">@Model.botinfo</textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="copyinfo" class="col-sm-2">版权所有</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="copyinfo" name="copyinfo" value="@Model.copyinfo" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="icpinfo" class="col-sm-2">备案号</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="icpinfo" name="icpinfo" value="@Model.icpinfo" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="icpurl" class="col-sm-2">备案号链接地址</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="icpurl" name="icpurl" value="@Model.icpurl" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-horizontal ibox-content p-md m-b">
+                        <div class="form-group">
+                            <label for="tel" class="col-sm-2">输入手机端一键拨号号码</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="tel" name="tel" value="@Model.tel" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-horizontal ibox-content p-md m-b">
+                        <div class="form-group">
+                            <label for="tel" class="col-sm-2">专注硬度检测年份</label>
+                            <div class="col-sm-10">
+                                <input type="number" class="form-control" id="year" name="year" value="@Model.year" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group ibox-content p-md m-b overf">
+                        <div class=" col-sm-12 tc">
+                            <button type="submit" class="btn btn-primary">全部提交</button>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            var s = new Valform();
+            s.check("form2", true);
+        });
+        function showerm() {
+            layer.open({
+                type: 1,
+                skin: 'layui-layer-rim', //加上边框
+                area: ['420px', '340px'], //宽高
+                content: '<div style="text-align:center"><span style="line-height:40px">扫码获取权限：</span><br/><img src="/img/ewm.jpg"  width="200" height="200"></div>'
+            });
+        }
+    </script>
+</body>
+</html>

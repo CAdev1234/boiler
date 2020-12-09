@@ -1,0 +1,26 @@
+[
+  {
+    "position": "banner",
+    "title": "电脑端-首页banner图(1920px*600px)",
+    "width": "1920px",
+    "height": "600px"
+  },
+  //{
+  //  "position": "gsjj",
+  //  "title": "手机端-首页走进奥龙图(562px*334px)",
+  //  "width": "562px",
+  //  "height": "334px"
+  //},
+  {
+    "position": "botewm",
+    "title": "电脑端-底部二维码(100px*100px)",
+    "width": "100px",
+    "height": "100px"
+  },
+  {
+    "position": "sjbanner",
+    "title": "手机端-首页banner图(640px*300px)",
+    "width": "640px",
+    "height": "300px"
+  }
+]

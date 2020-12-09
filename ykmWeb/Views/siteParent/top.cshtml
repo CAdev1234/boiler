@@ -1,0 +1,26 @@
+﻿<script type="text/javascript" src="~/web_js/search.js"></script>
+
+<!--顶部-->
+<div class="logo_box">
+    <div class="pc_box">
+        <div class="left">
+            <div class="logo"><img src="/web_images/logo-text.png"></div>
+        </div>
+        <div class="right">
+            <!--导航-->
+            <div class="nav">
+                <ul>
+                    @Html.Raw(ViewBag.topmenu)
+                </ul>
+            </div>
+
+            <div class="search" style="display: flex;">
+                @*<input id="key" name="key" type="text" placeholder="搜索">*@
+                <div class="btn"><a href="javascript:;" onclick="searchthis()"><img src="/web_images/pc_btn_03.jpg"></a></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--轮播图-->
+@Html.Raw(ViewBag.banner)

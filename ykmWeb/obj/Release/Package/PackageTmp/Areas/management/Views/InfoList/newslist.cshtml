@@ -1,0 +1,205 @@
+﻿@model List<ykmWeb.Models.ht_list_info>
+@{
+    ykmWeb.Dal.Serv.DalMenuClass dmc = new ykmWeb.Dal.Serv.DalMenuClass(new ykmWeb.Dal.ykmWebDbContext());
+}
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit" />
+    <title>网站后台管理系统</title>
+    <link rel="shortcut icon" href="/img/favicon.ico">
+    <link href="/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <!-- Morris -->
+    <link href="/css/plugins/morris/morris-0.4.3.min.css" rel="stylesheet">
+    <!-- Gritter -->
+    <link href="/js/plugins/gritter/jquery.gritter.css" rel="stylesheet">
+    <link href="/css/animate.css" rel="stylesheet">
+    <link href="/css/style.css?v=4.1.0" rel="stylesheet">
+
+
+
+
+    @*<link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap-theme.min.css">*@
+    <link href="/css/index.css" rel="stylesheet" type="text/css">
+    <script src="/Scripts/jquery-1.10.2.min.js"></script>
+
+    <script src="/Scripts/menu.js"></script>
+    <!--日期控件 -->
+    <link href="/bootstrap/datetimepicker/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css">
+    <script src="/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="/bootstrap/datetimepicker/bootstrap-datetimepicker.min.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="/bootstrap/datetimepicker/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+
+    <script src="~/Scripts/user_main_nclass.js"></script>
+    <script src="~/layer/layer.js"></script>
+    <script src="~/Scripts/batch_ctrl.js"></script>
+</head>
+<body class="gray-bg">
+
+    <div class="wrapper wrapper-content">
+
+        <div class="wpadd2 overf ibox-content m-b flex flex-align-center flex-between">
+            <h4 class="h4"><b>@ViewBag.pagetitle</b></h4>
+            <a href="/management/InfoList/newscont?cid=@ViewBag.pagecid" class="btn btn-primary">添加</a>
+        </div>
+
+        <div class="wpadd2 overf liheig36 ibox-content p-md">
+            <div class="listbox">
+                <form action="" method="get" name="form1" id="form1">
+                    <label for="key" class="left m-r">快速查找</label>
+                    <input type="text" class="form-control w10 left m-r" id="key" name="key" placeholder="标题名" value="">
+                    <label for="title" class="left m-r">发布日期</label>
+                    <div class="w10 left m-r">
+                        <div class='input-group date' id='datetimepicker1' data-date-format="yyyy-mm-dd">
+                            <input type='text' name="sdate" id="sdate" value="" class="form-control" readonly />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="left m-r">至</div>
+                    <div class="w10 left m-r">
+                        <div class='input-group date' id='datetimepicker2' data-date-format="yyyy-mm-dd">
+                            <input type='text' name="edate" id="edate" value="" class="form-control" readonly />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                    <button class="btn btn-success m-r">开始查询</button>
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>所有信息( @ViewBag.infocount 条）</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th width="5%"><input type="checkbox" class="batch_ckall" id="ckall" name="ckall" /> 全选</th>
+                                    <th width="15%" class="tc">缩略图</th>
+                                    <th width="40%" class="tc">标题</th>
+                                    <th width="15%" class="tc">所属分类</th>
+                                    <th width="15%" class="tc">发布时间</th>
+                                    <th width="10%" class="tc">操作设置</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @foreach (var i in Model)
+                                {
+                                    var name = "ck" + i.id.Value;
+                                    <tr>
+                                         <td><input type="checkbox" id="@name" value="@i.id" name="ck" /></td>                                        <td>
+                                            <div class="zp_info">
+                                                <div class="zp_pic m-r">
+                                                    @if (string.IsNullOrEmpty(i.defaultpic))
+                                                    {
+                                                        <img src="/images/u542.png" />
+                                                    }
+                                                    else
+                                                    {
+                                                        <img src="@i.defaultpic" />
+                                                    }
+                                                    </div>
+                                                </div>
+                                        </td>
+                                        <td>
+                                            @i.title
+                                        </td>
+                                        <td class="tc">@dmc.getCatalogName(i.classid.Value)</td>
+                                        <td class="tc">@i.insertdate</td>
+                                        <td class="tc">
+                                            <div class="myedit">
+                                                @Html.ActionLink("修改", "newscont", new { id = i.id })
+                                                @Html.ActionLink("删除", "del", new { id = i.id }, new { onclick = "return confirm('确定要删除吗？')" })
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                                <tr>
+                                    <td width="5%"><input type="checkbox" class="batch_ckall" id="ckall" name="ckall" /> 全选</td>
+                                    <td width="75%" colspan="6">
+                                        <div class=" form-inline">
+                                            <input type="button" value="删除所选信息" class="btn btn-default batch-delall" id="btn5" data-batchurl="/management/InfoList/delall" />
+                                            <div class="input-group">
+                                                <input type="hidden" id="changecid" name="changecid" />
+                                                <input type="text" class="form-control" id="classname2" readonly
+                                                       name="classname2" placeholder="请选择栏目" value="">
+                                                <span class="input-group-btn">
+                                                    <button type="button" class="btn btn-default" id="btn2" onclick="show2()">打开分类</button>
+                                                </span>
+                                            </div>
+                                            <input type="button" value="更改分类" class="btn btn-default  batch-changeclass" id="btn6" data-batchurl="/management/InfoList/chageall" />
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="footpage">
+                            @Html.Raw(ViewBag.footpage)
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        $('#datetimepicker1').datetimepicker({
+            language: 'zh-CN',
+            weekStart: 1,
+            todayBtn: 1,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 2,
+            minView: 2,
+            forceParse: 0
+        });
+
+        $('#datetimepicker2').datetimepicker({
+            language: 'zh-CN',
+            weekStart: 1,
+            todayBtn: 1,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 2,
+            minView: 2,
+            forceParse: 0
+        });
+
+        var mc = new main_class_nclass();
+        function set_class(cid, text, t) {
+            if (t == "c") {
+                $("#cid").val(cid);
+                $("#classname").val(text);
+            }
+            else if (t == "e") {
+                $("#changecid").val(cid);
+                $("#classname2").val(text);
+            }
+            mc.info_hide_class();
+        }
+
+        function show1() {
+            mc.viewpagename = "menuClassList";
+            mc.info_list_class("c", "info");
+        }
+        function show2() {
+            mc.viewpagename = "menuClassList";
+            mc.info_list_class("e", "info");
+        }
+    </script>
+
+</body>
+</html>

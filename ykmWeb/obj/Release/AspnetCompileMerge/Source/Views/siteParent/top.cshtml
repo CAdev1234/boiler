@@ -1,0 +1,36 @@
+﻿<script type="text/javascript" src="~/web_js/search.js"></script>
+<div class="top">
+    <div class="pc_box">
+        <div class="left">您好，欢迎来到上海奥龙星迪检测设备有限公司(原上海材料试验机厂)官网！</div>
+        <div class="right">
+            <div class="tel">咨询热线：<span>@ViewBag.tel</span></div>
+            <div class="sousuo">
+                <input id="key" name="key" type="text" placeholder="搜索">
+                <div class="btn"><a href="javascript:;" onclick="searchthis()"><img src="/web_images/pc_btn_03.jpg"></a></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--顶部-->
+<div class="logo_box">
+    <div class="pc_box">
+        <div class="left">
+            <div class="logo"><img src="/web_images/1_07.jpg"></div>
+            <div class="ggy">
+                专注硬度检测<span>@ViewBag.year</span>年<br />
+                <b>全国知名注册品牌</b>
+            </div>
+        </div>
+        <div class="right"><img src="/web_images/shangbiao_09.jpg"></div>
+    </div>
+</div>
+<!--导航-->
+<div class="header">
+    <div class="pc_box">
+        <ul>
+            @Html.Raw(ViewBag.topmenu)
+        </ul>
+    </div>
+</div>
+<!--轮播图-->
+@Html.Raw(ViewBag.banner)

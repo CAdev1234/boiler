@@ -1,0 +1,28 @@
+[
+  {
+    "code": "info",
+    "tableType": "info",
+    "dataValue": "/list",
+    "dataContValue": "/cont",
+    "dataMobiValue": "/h5/list",
+    "dataMobiContValue": "/h5/cont",
+    "dataValue_en": "/en/list",
+    "dataContValue_en": "/en/cont",
+    "dataMobiValue_en": "/en/h5/list",
+    "dataMobiContValue_en": "/en/h5/cont",
+    "title": "文章页面"
+  },
+  {
+    "code": "pro",
+    "tableType": "pro",
+    "dataValue": "/prolist",
+    "dataContValue": "/procont",
+    "dataMobiValue": "/h5/prolist",
+    "dataMobiContValue": "/h5/procont",
+    "dataValue_en": "/en/prolist",
+    "dataContValue_en": "/en/procont",
+    "dataMobiValue_en": "/en/h5/prolist",
+    "dataMobiContValue_en": "/en/h5/procont",
+    "title": "产品页面"
+  }
+]

@@ -1,0 +1,169 @@
+﻿<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    @Html.Raw(ViewBag.seostr)
+    <link rel="stylesheet" href="/web_css/base.css" />
+    <link rel="stylesheet" href="/web_css/index.css" />
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="/web_js/jquery.SuperSlide.2.1.1.js"></script>
+
+    <script type="text/javascript" src="/web_js/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="/web_js/TouchSlide.1.1.js"></script>
+    <script src="/web_js/jquery1.42.min.js"></script>
+    <script src="/web_js/jquery.SuperSlide.2.1.1.js"></script>
+    <script src="/web_js/swiper.min.js"></script>
+
+</head>
+<body>
+    <div class="pc">
+        <!--顶部-->
+        @{
+            Html.RenderAction("top", "siteParent", new { cid = ViewBag.cid, t = "index" });
+        }
+        <!--产品栏目滚动-->
+        @Html.Raw(ViewBag.lanmu)
+        <!--产品滚动-->
+        @*@Html.Raw(ViewBag.procenter)*@
+        <div class="slideGroup">
+            <div class="pc_box">
+                <div class="title_box">
+                    <div class="tit">产品展示</div>
+                    <div class="ftit">
+                        公司已通过ISO9001国际质量体系认证<br />
+                        产品均获得欧盟CE认证。
+                    </div>
+                    <div class="parHd">
+                        <ul>
+                            <li class="on"><a href="javascript:;">全部产品</a></li>
+                            <li><a href="javascript:;">硬度检测设备</a></li>
+                            <li><a href="javascript:;">定制在线硬度计</a></li>
+                            <li><a href="javascript:;">金相制样设备</a></li>
+                            <li><a href="javascript:;">材料试验设备</a></li>
+                            <li><a href="javascript:;">无损检测设备</a></li>
+                            <li><a href="javascript:;">X射线产品</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+            <div class="parBd">
+                @Html.Raw(ViewBag.index_product)
+                @Html.Raw(ViewBag.ydjcsb)
+                @Html.Raw(ViewBag.dzzxydj)
+                @Html.Raw(ViewBag.jxzysb)
+                @Html.Raw(ViewBag.clsysb)
+                @Html.Raw(ViewBag.msjcsb)
+                @Html.Raw(ViewBag.xsxcp)
+            </div>
+        </div>
+        <script type="text/javascript">
+            jQuery(".slideGroup .slideBox").slide({ mainCell: "ul", vis: 4, prevCell: ".sPrev", nextCell: ".sNext", effect: "leftLoop" });
+            
+            jQuery(".slideGroup").slide({ titCell: ".parHd li", mainCell: ".parBd" });
+
+        </script>
+        <!--走进奥龙-->
+        <div class="zjal_box">
+            <div class="pc_box">
+                <div class="left">    <embed class="edui-faked-video" pluginspage="http://www.macromedia.com/go/getflashplayer" src="http://1258165379.vod2.myqcloud.com/1701b371vodcq1258165379/3787c26c5285890806852192054/8hqEjnhdQvYA.mp4"wmode="transparent" play="true" loop="false" menu="false" allowscriptaccess="never" allowfullscreen="true" /></div>
+                @Html.Raw(ViewBag.about_aolong)
+            </div>
+        </div>
+        <!--新闻中心-->
+        @Html.Raw(ViewBag.index_news)
+        <!--联系我们-->
+        <div class="lxwm_box">
+            <div class="pc_box">
+                <div class="lx_box">
+                    <div class="left">
+                        <a href="@ViewBag.hjzs_url">
+                            <div class="lam_link hj">
+                                <div class="tit">@ViewBag.hjzs</div>
+                            </div>
+                        </a>
+                        <a href="@ViewBag.zlxz_url">
+                            <div class="lam_link xiazai">
+                                <div class="tit">@ViewBag.zlxz</div>
+                            </div>
+                        </a>
+                    </div>
+                    @Html.Raw(ViewBag.lxwm)
+                    <div class="right">
+                        <a href="@ViewBag.yxwl_url">
+                            <div class="lam_link yxwl">
+                                <div class="tit">@ViewBag.yxwl</div>
+                            </div>
+                        </a>
+                        <a href="@ViewBag.zxly_url">
+                            <div class="lam_link zxly">
+                                <div class="tit">@ViewBag.zxly</div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--友情链接-->
+        <div class="link">
+            <div class="pc_box">
+                <div class="title">友情链接：</div>
+                @Html.Raw(ViewBag.link)
+            </div>
+        </div>
+        @{
+            Html.RenderAction("boot", "siteParent", new { cid = ViewBag.cid });
+        }
+        <div class="fixed"><a href="/web_images/ryzz.jpg"><img src="~/web_images/ryzz.jpg"></a></div>
+    </div>
+    <div class="sj">
+        <div class="viewport index sj">
+            @{
+                Html.RenderAction("h5_top", "siteParent", new { cid = ViewBag.cid });
+            }
+            <!--轮播图-->
+            @Html.Raw(ViewBag.sjbanner)
+            <!--产品栏目滚动-->
+            @Html.Raw(ViewBag.sj_lanmu)
+            <!--产品列表-->
+            @Html.Raw(ViewBag.sj_pro)
+            <!--走进奥龙-->
+            @Html.Raw(ViewBag.sj_aolong)
+            <!--新闻中心-->
+            @Html.Raw(ViewBag.sj_index_news)
+            <!--栏目链接-->
+            <div class="link">
+                <ul>
+                    <li class="hj">
+                        <a href="@ViewBag.hjzs_url">
+                            <div class="tit">@ViewBag.hjzs</div>
+                        </a>
+                    </li>
+                    <li class="zx">
+                        <a href="@ViewBag.zlxz_url">
+                            <div class="tit">@ViewBag.zlxz</div>
+                        </a>
+                    </li>
+                    <li class="yx">
+                        <a href="@ViewBag.yxwl_url">
+                            <div class="tit">@ViewBag.yxwl</div>
+                        </a>
+                    </li>
+                    <li class="ly">
+                        <a href="@ViewBag.zxly_url">
+                            <div class="tit">@ViewBag.zxly</div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <!--一键拨号-->
+            @Html.Raw(ViewBag.sj_lxwm)
+            <!--底部版权-->
+            @{
+                Html.RenderAction("h5_bot", "siteParent", new { cid = ViewBag.cid });
+            }
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,232 @@
+﻿@model ykmWeb.Models.menuClass
+@{ 
+    ykmWeb.Bll.siteLanguage s = new ykmWeb.Bll.siteLanguage();
+}
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit" />
+    <title>网站后台管理系统</title>
+    <link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap-theme.min.css">
+
+    <link href="/css/index.css" rel="stylesheet" type="text/css">
+    <script src="/Scripts/jquery-1.10.2.min.js"></script>
+
+    <script src="/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+
+    <!--表单验证 -->
+    <script type="text/javascript" src="/bootstrap/Val/bootstrapValidator.min.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="/bootstrap/Val/language/zh_CN.js" charset="UTF-8"></script>
+    <link rel="stylesheet" type="text/css" href="/bootstrap/Val/bootstrapValidator.min.css">
+    <script src="/bootstrap/Val/Validator_form.js"></script>
+    <!--文件上传 -->
+    <script src="~/bootstrap/upfiles/fileinput.min.js"></script>
+    <script src="~/bootstrap/upfiles/zh.js"></script>
+    <link href="~/bootstrap/upfiles/fileinput.min.css" rel="stylesheet" />
+    <script src="~/bootstrap/upfiles/upfilesCtrl.js"></script>
+    <script src="~/Scripts/upload_info_ctrl.js"></script>
+    <!--上传附件，自定义文件-->
+    <script src="~/bootstrap/upfiles/userUpfilesCtrl.js"></script>
+    <script src="~/Scripts/upload_files_ctrl.js"></script>
+    <script src="~/Scripts/user_main_nclass.js"></script>
+</head>
+<body style="background:#ffffff">
+
+    <div class="alt_top h4">
+        添加子栏目
+    </div>  
+    <div class="cont">
+        @using (Html.BeginForm("user_save", "menuClassList", FormMethod.Post, new { id = "form1", name = "form1" }))
+        {
+            <input type="hidden" name="savetype" id="savetype" value="@ViewBag.savetype" />
+            <input type="hidden" value="@Model.ParentID" name="ParentID" id="ParentID" />
+            <input type="hidden" value="@Model.Catalogid" name="Catalogid" id="Catalogid" />
+            <input type="hidden" value="@Model.linktype" name="linktype" id="linktype" />
+            <input type="hidden" value="@Model.linkurl" name="linkurl" id="linkurl" />
+            <input type="hidden" value="@Model.linkCid" name="linkCid" id="linkCid" />
+            <input type="hidden" value="@Model.h5linktype" name="h5linktype" id="h5linktype" />
+            <input type="hidden" value="@Model.h5linkurl" name="h5linkurl" id="h5linkurl" />
+            <input type="hidden" value="@Model.h5linkCid" name="h5linkCid" id="h5linkCid" />
+            <div class="form-horizontal">
+                <ul id="myTab" class="nav nav-tabs ">
+                    <li class="active">
+                        <a href="#jb" data-toggle="tab">
+                            基本信息
+                        </a>
+                    </li>
+                </ul>
+                <div id="myTabContent" class="tab-content mtop1">
+                    <div class="tab-pane  in active" id="jb">
+                        <div class="form-group">
+                            <label for="title" class="col-sm-4 ">分类名称</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="catalogname"
+                                       name="catalogname" placeholder="请输入分类名称" value="@Model.Catalogname" required data-bv-notempty-message="请输入分类名称！">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="title" class="col-sm-4 ">副标题</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="subtitle" name="subtitle" placeholder="请输入副标题" value="@Model.subtitle">
+                            </div>
+                        </div>
+                        <div class="form-group" style="display:none">
+                            <label for="classname1" class="col-sm-4 ">调用表</label>
+                            <div class="col-sm-8">
+                                <select id="tabletype" name="tabletype" onchange="getPageLink(this.value)" class="form-control" data-bv-notempty data-bv-notempty-message="调用表不能为空！">
+                                    @*<option value="">请选择</option>*@
+                                    <option value="info" @(Model.tabletype == "info" ? "selected" : "")>信息表</option>
+                                    <option value="pro" @(Model.tabletype == "pro" ? "selected" : "")>产品表</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group" style="display:none">
+                            <label for="title" class="col-sm-4 ">主导航是否显示</label>
+                            <div class="col-sm-8">
+                                <select id="mainnavshow" name="mainnavshow" class="form-control" data-bv-notempty data-bv-notempty-message="请选择！">
+                                    <option value="">请选择</option>
+                                    <option value="1" @(Model.mainnavshow == 1 ? "selected" : "")>显示</option>
+                                    <option value="0" @(Model.mainnavshow == 0 ? "selected" : "")>不显示</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group" style="display:none">
+                            <label for="title" class="col-sm-4 ">子页侧面导航是否显示</label>
+                            <div class="col-sm-8">
+                                <select id="leftnavshow" name="leftnavshow" class="form-control" data-bv-notempty data-bv-notempty-message="请选择！">
+                                    <option value="">请选择</option>
+                                    <option value="1" @(Model.leftnavshow == 1 ? "selected" : "")>显示</option>
+                                    <option value="0" @(Model.leftnavshow == 0 ? "selected" : "")>不显示</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="title" class="col-sm-4 ">页面样式</label>
+                            <div class="col-sm-8">
+                                <select id="pagename" name="pagename" class="form-control" data-bv-notempty data-bv-notempty-message="页面样式不能为空！" onchange="checkListTtpe(this.value)">
+                                    @Html.Raw(ViewData["pagename"])
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="classname1" class="col-sm-4 ">显示形式</label>
+                            <div class="col-sm-8">
+                                <select id="pclisttype" name="pclisttype" class="form-control" data-bv-notempty data-bv-notempty-message="显示形式不能为空！">
+                                    @Html.Raw(ViewData["pclisttype"])
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label for="txt_file">上传子页banner图</label>
+                                <input type="file" name="txt_file" id="txt_file" multiple class="file-loading" />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="txt_file">已上传文件</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon">默认显示</span>
+                                    <input type='text' name="defaultpic" id="defaultpic" class="form-control" value="@Model.defaultpic" />
+                                    <input type='hidden' name="uploadfiles" id="uploadfiles" value="@Model.defaultpic" />
+                                </div>
+                            </div>
+
+                            <div class="listimg" id="lisgimg">
+
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label for="txt_file">上传栏目小图标</label>
+                                <input type="file" name="down_file" id="down_file" multiple class="file-loading" />
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="txt_file">已上传文件</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon">默认显示</span>
+                                    <input type='text' name="downloadfile" id="downloadfile" class="form-control" value="@Model.downloadfiles" />
+                                    <input type='hidden' name="downloadfiles" id="downloadfiles" value="@Model.downloadfiles" />
+                                </div>
+                            </div>
+
+                            <div class="listimg" id="lisgfile">
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane" id="lang" style="display:none">
+                        <div class="form-group">
+                            <label for="title" class="col-sm-4 ">选择语言</label>
+                            <div class="col-sm-8">
+                                <select id="language" name="language" class="form-control" data-bv-notempty data-bv-notempty-message="请选择语言！">
+                                    <option value="">请选择</option>
+                                    @Html.Raw(s.return_option(Model.language))
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="form-group mtop1">
+                    <div class=" col-sm-12 tc">
+                        <button type="submit" class="btn btn-primary">全部提交</button>
+                    </div>
+                </div>
+
+            </div>
+        }
+    </div>
+    <script>
+        var u = new shownr();
+        u.init("defaultpic", "uploadfiles", "lisgimg");
+        u.show_img("");
+
+        var o = new showfile();
+        o.init("downloadfile", "downloadfiles", "lisgfile");
+        o.show_img("");
+
+        function instrut(f) {
+            u.show_img(f);
+        }
+        function instrutfile(f) {
+            o.show_img(f);
+        }
+
+
+
+        $(document).ready(function () {
+            var s = new Valform();
+            s.check("form1", true);
+            var oFileInput = new FileInput();
+            oFileInput.Init("txt_file", instrut);
+            var oDownInput = new DownInput();
+            oDownInput.Init("down_file", instrutfile);
+        });
+        var checkListTtpe = function (val) {
+            $.get("/management/menuClassList/listPageContent?code=" + val, function (data) {
+                $("#pclisttype").empty();
+                $("#pclisttype").append(data);
+            })
+        }
+
+        var getPageLink = function (val) {
+            $.get("/management/menuClassList/PageLInkContent?code=" + val, function (data) {
+                $("#pclisttype").empty();
+                $("#pagename").empty();
+                $("#pagename").append(data);
+            })
+        }
+    </script>
+
+</body>
+</html>

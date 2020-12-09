@@ -1,0 +1,28 @@
+﻿<!--在线留言-->
+<div class="liuyan">
+    <div class="box">
+        <div class="txt_box">
+            <div class="title">Your suggestion is the greatest help to us, please leave a message to us!</div>
+            @*<div class="en_tit">Your suggestion is the greatest help to us, please leave a message to us!</div>*@
+        </div>
+        <div class="more"><a href="/en/list?cid=37">ONLINE MESSAGE</a></div>
+    </div>
+</div>
+<!--底部-->
+<div class="footer">
+    <div class="box_nr">
+        <div class="top">
+            <div class="mune">
+                @Html.Raw(ViewBag.botmenu)
+            </div>
+            <div class="center">
+                @Html.Raw(ViewBag.botinfo)
+            </div>
+        </div>
+        <div class="ewm">
+            @Html.Raw(ViewBag.ewmimg)
+        </div>
+    </div>
+    <div class="banquan"><div class="box_nr">@Html.Raw(ViewBag.copyinfo)    |    <a href="@ViewBag.icpurl" target="_blank">@ViewBag.icpinfo</a>    |    <a href="http://www.yalujiang.cn/" target="_blank">Yalu River Network Technology Support</a>    </div></div>
+</div>
+<script src="/web_js/bot.js"></script>

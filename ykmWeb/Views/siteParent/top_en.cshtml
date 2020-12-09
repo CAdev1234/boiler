@@ -1,0 +1,23 @@
+﻿<script type="text/javascript" src="~/web_js/search.js"></script>
+<!--导航-->
+<div class="header">
+    <div class="box">
+        <a href="/index" class="logo"><img src="/web_images/home_02.png" alt="" /></a>
+        <div class="search">
+            <input id="key" name="key" type="text" value="" placeholder="Information search" />
+            <a href="javascript:;" onclick="searchthis_en()"><img src="/web_images/ss_03.jpg"></a>
+        </div>
+        <div class="banben">
+            <div class="cn"><a href="/index">中文版</a></div>
+            <div class="en"><a href="/en/index">ENGLISH</a></div>
+        </div>
+    </div>
+</div>
+<!--导航-->
+<div class="nav">
+    <ul>
+        @Html.Raw(ViewBag.topmenu)
+    </ul>
+</div>
+<!--轮播图-->
+@Html.Raw(ViewBag.banner)

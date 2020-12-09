@@ -1,0 +1,40 @@
+[
+  {
+    "code": "info",
+    "dataValue": "pro-list",
+    "title": "产品列表",
+    "demoUrl": ""
+  },
+  {
+    "code": "info",
+    "dataValue": "news-list",
+    "title": "新闻列表",
+    "demoUrl": ""
+  },
+  {
+    "code": "info",
+    "dataValue": "msg",
+    "title": "留言板样式",
+    "demoUrl": ""
+  },
+  {
+    "code": "info",
+    "dataValue": "cont",
+    "title": "内容样式",
+    "demoUrl": ""
+  },
+  {
+    "code": "info",
+    "dataValue": "news-shipin-list",
+    "title": "视频中心",
+    "demoUrl": ""
+  },
+  {
+    "code": "info",
+    "dataValue": "news-huanjing-list",
+    "title": "环境列表",
+    "demoUrl": ""
+  }
+]
+
+

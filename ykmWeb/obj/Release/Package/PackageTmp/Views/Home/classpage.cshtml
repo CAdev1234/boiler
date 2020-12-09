@@ -1,0 +1,33 @@
+﻿@model ykmWeb.Models.pageNewlist
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    @Html.Raw(Model.seostr)
+    <link rel="stylesheet" href="/web_css/base.css" />
+    <link rel="stylesheet" href="/web_css/list.css" />
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="/web_js/jquery.SuperSlide.2.1.1.js"></script>
+    <script src="~/layer/layer.js"></script>
+    <script src="~/Scripts/sandcheckform.js"></script>
+    <script type="text/javascript" src="~/web_js/search.js"></script>
+    <style type="text/css">
+        .links {
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body>
+    @{
+        Html.RenderAction("top", "siteParent", new { cid = ViewBag.cid });
+    }
+    <div class="weizhi"><div class="box">您当前的位置：@Html.Raw(Model.path)</div></div>
+    <div class="docking">
+        <div class="title"><h2>军民项目对接</h2><div class="eng">Docking of Military Civil Projects</div></div>
+        @Html.Raw(Model.listHtml)
+    </div>
+    @{
+        Html.RenderAction("boot", "siteParent", new { cid = ViewBag.cid });
+    }
+</body>
+</html>

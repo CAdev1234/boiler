@@ -1,0 +1,29 @@
+﻿<!--头部-->
+<div class="header">
+    <div class="logo"><a href="/"><img src="/web_images/sj_logo_01.jpg" alt="" /></a></div>
+    <div class="menu"><a href="#"><img src="/web_images/sj_mune_04.jpg" alt="" /></a></div>
+    <div class="sousuo"><a href="/search"><img src="/web_images/sj_sousuo_03.jpg" alt="" /></a></div>
+</div>
+<!--导航-->
+<div class="daoh">
+    @Html.Raw(ViewData["mobi_nav"])
+</div>
+<script>
+                $(".header .menu").click(function () {
+                    $(".daoh").toggle();
+                })
+                $(".daoh .nLi").click(function () {
+                    $(this).addClass("on").siblings().removeClass("on");
+                    $(this).children(".sub").show().parents(".nLi").siblings().children(".sub").hide();
+                    $(this).siblings().children(".sub").hide();
+                    if ($(".daoh .nLi .sub").is(":visible")) {
+                        $(".bg").show();
+                    }
+                    else if ($(".daoh .nLi .sub").is(":hidden")) {
+                        $(".bg").hide();
+                    }
+                })
+                $(".search img").click(function () {
+                    $(".hide").toggle();
+                })
+</script>

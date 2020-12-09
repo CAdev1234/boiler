@@ -1,0 +1,84 @@
+﻿@model ykmWeb.Models.pageIndex
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    @Html.Raw(Model.seostr)
+    <link rel="stylesheet" href="/web_css/h5/index.css" />
+    <link rel="stylesheet" href="/web_css/h5/base.css" />
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="/web_js/TouchSlide.1.1.js"></script>
+    <script src="~/layer/mobile/layer.js"></script>
+    <script src="~/web_js/search_h5.js"></script>
+</head>
+<body>
+    <div class="viewport index">
+        <!--头部-->
+        <div class="header">
+            <img src="/web_images/h5/logo_01.jpg" alt="" />
+            <div class="sousuo">
+                <div class="kuang">
+                    <input id="key" name="key" value="" type="text" />
+                    <a href="javascript:searchthis();"><img src="/web_images/h5/sj_04.png"></a>
+                </div>
+            </div>
+        </div>
+        <!--轮播图-->
+        <div class="lbt">
+            <div id="focus" class="focus">
+                <div class="hd">
+                    <ul></ul>
+                </div>
+                <div class="bd">
+                    <ul>
+                        @if (Model.banner != null)
+                        {
+                            if (Model.banner.Count > 0)
+                            {
+                                foreach (var o in Model.banner)
+                                {
+                                    <li><a href="@(!string.IsNullOrEmpty(o.ggwlink)? o.ggwlink:"javascript:;")"><img src="@o.imgurl" /></a></li>
+                                }
+                            }
+                        }
+                    </ul>
+                </div>
+            </div>
+            <script type="text/javascript">
+                TouchSlide({
+                    slideCell: "#focus",
+                    titCell: ".hd ul", //开启自动分页 autoPage:true ，此时设置 titCell 为导航元素包裹层
+                    mainCell: ".bd ul",
+                    effect: "left",
+                    autoPlay: true,//自动播放
+                    autoPage: true, //自动分页
+                    switchLoad: "_src" //切换加载，真实图片路径为"_src"
+                });
+            </script>
+        </div>
+        <!--切换-->
+        <div class="qh">
+            <div class="tab">
+                <div id="tabBox1" class="tabBox">
+                    <div class="hd">
+                        <ul>
+                            <li class="on"><a href="javascript:;">作品搜索</a></li>
+                        </ul>
+                    </div>
+                    <div class="bd" id="tabBox1-bd">
+                        @Html.Raw(Model.listHtml)
+                    </div>
+                </div>
+            </div>
+        </div>
+        @Html.Raw(Model.footHtml)
+        @{
+            Html.RenderAction("h5_copyright", "siteParent");
+        }
+        @{
+            Html.RenderAction("h5_bot", "siteParent", new { t = "index" });
+        }
+    </div>
+</body>
+</html> 

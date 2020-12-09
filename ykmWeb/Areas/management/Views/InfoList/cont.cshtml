@@ -1,0 +1,135 @@
+﻿@model ykmWeb.Models.info
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit" />
+    <title>网站后台管理系统</title>
+    <link rel="shortcut icon" href="/img/favicon.ico">
+    <link href="/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <!-- Morris -->
+    <link href="/css/plugins/morris/morris-0.4.3.min.css" rel="stylesheet">
+    <!-- Gritter -->
+    <link href="/js/plugins/gritter/jquery.gritter.css" rel="stylesheet">
+    <link href="/css/animate.css" rel="stylesheet">
+    <link href="/css/style.css?v=4.1.0" rel="stylesheet">
+
+
+
+
+    <link href="/bootstrap/datetimepicker/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css">
+    <link href="/css/index.css" rel="stylesheet" type="text/css">
+    <script src="/Scripts/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/yljwebpageedit/ueditor.config.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/yljwebpageedit/ueditor.all.min.js"></script>
+    <script src="/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="/bootstrap/datetimepicker/bootstrap-datetimepicker.min.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="/bootstrap/datetimepicker/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+
+    <!--表单验证 -->
+    <script type="text/javascript" src="/bootstrap/Val/bootstrapValidator.min.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="/bootstrap/Val/language/zh_CN.js" charset="UTF-8"></script>
+    <link rel="stylesheet" type="text/css" href="/bootstrap/Val/bootstrapValidator.min.css">
+    <script src="/bootstrap/Val/Validator_form.js"></script>
+    <!--文件上传 -->
+    <script src="~/bootstrap/upfiles/fileinput.min.js"></script>
+    <script src="~/bootstrap/upfiles/zh.js"></script>
+    <link href="~/bootstrap/upfiles/fileinput.min.css" rel="stylesheet" />
+    <script src="~/bootstrap/upfiles/upfilesCtrl.js"></script>
+    <script src="~/Scripts/upload_info_ctrl.js"></script>
+    <!--上传附件，自定义文件-->
+    <script src="~/bootstrap/upfiles/userUpfilesCtrl.js"></script>
+    <script src="~/Scripts/upload_files_ctrl.js"></script>
+
+    <script src="~/Scripts/user_main_nclass.js"></script>
+
+    <!-- 打开窗口 -->
+    <script src="~/Scripts/ctrl_form_add.js"></script>
+    <script src="~/layer/layer.js"></script>
+</head>
+<body>
+
+    <div class="wrapper wrapper-content">
+
+        @using (Html.BeginForm("update", "InfoList", FormMethod.Post, new { id = "form1", name = "form1" }))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="ibox-content overf m-b flex flex-align-center">
+                <div class="col-sm-4 h4">
+                    <b>@ViewBag.pagetitle</b>
+                </div>
+                <div class="col-sm-8 flex flex-end flex-align-center">
+                    <label class="m-r">
+                        <input type="checkbox" @(Model.issame == 1 ? "checked" : "") onclick="javascript:document.getElementById('issame').value=(this.checked)?1:0;">  PC/手机 两端同步
+                        <input name="issame" type="hidden" value="@Model.issame" id="issame">
+                    </label>
+                    <a href="javascript:;" onclick="getCont()" id="showBtn" class="btn btn-primary">切换手机端</a>
+                </div>
+            </div>
+
+            <div class="ibox-content overf">
+                <div class="cont">
+                    <input type="hidden" value="h5" name="show" id="show" />
+                    <input type="hidden" value="cont" name="pagetype" id="pagetype" />
+                    <input type="hidden" value="@ViewBag.savetype" name="savetype" id="savetype" />
+                    <input type="hidden" value="@Model.id" name="id" id="id" />
+                    <input type="hidden" value="@Model.title" name="title" id="title" />
+                    <input type="hidden" value="@Model.classid" name="classid" id="classid" />
+
+                    <div id="pc" class="form-group ">
+                        <div class="h4"><b>编辑简介</b></div>
+                        <textarea name="intro" id="intro" style="width:100%; height:200px;margin-bottom:30px;">@Model.intro</textarea>
+                        <script>
+                            var ue = UE.getEditor('intro');
+                        </script>
+                        <div class="h4"><b>编辑内容</b></div>
+                        <textarea name="cont" id="cont" style="width:100%; height:500px;margin-bottom:30px;">@Model.cont</textarea>
+                        <script>
+                            var ue = UE.getEditor('cont');
+                        </script>
+                    </div>
+
+                    <div id="h5" class="form-group none">
+                        <textarea name="h5cont" id="h5cont" style="width:100%; height:500px">@Model.h5cont</textarea>
+                        <script>
+                            var ue = UE.getEditor('h5cont');
+                        </script>
+                    </div>
+
+                    <div class="form-group mtop1">
+                        <div class=" col-sm-12 tc">
+                            <button type="submit" class="btn btn-primary">全部提交</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        }
+    </div>
+    <script>
+        $(document).ready(function () {
+            var s = new Valform();
+            s.check("form1", true);
+        });
+
+        function getCont() {
+            var s = $("#show").val();
+            if (s == "h5") {
+                $("#h5").show();
+                $("#pc").hide();
+                $("#show").val("pc");
+                $("#showBtn").text("切换PC端")
+            }
+            else {
+                $("#pc").show();
+                $("#h5").hide();
+                $("#show").val("h5");
+                $("#showBtn").text("切换手机端")
+            }
+        }
+    </script>
+
+</body>
+</html>

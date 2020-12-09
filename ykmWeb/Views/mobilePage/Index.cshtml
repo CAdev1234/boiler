@@ -1,0 +1,39 @@
+﻿@model ykmWeb.Models.pageMobiIndex
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    @Html.Raw(Model.seostr)
+    <link rel="stylesheet" href="/web_css/h5/index.css" />
+    <link rel="stylesheet" href="/web_css/h5/base.css" />
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="/web_js/TouchSlide.1.1.js"></script>
+    <script src="~/layer/mobile/layer.js"></script>
+    <script src="~/web_js/search_h5.js"></script>
+</head>
+<body>
+    <div class="viewport index">
+        <!--头部-->
+        <div class="header">
+            <div class="logo"><img src="/web_images/h5/logo_01.jpg" alt="" /></div>
+            <div class="banben">
+                <a class="cn" href="/h5/"></a>
+                <a class="en" href="/en/h5"></a>
+            </div>
+        </div>
+        <!--轮播图-->
+        @Html.Raw(Model.htmlStr["banner"])
+        <!--产品中心-->
+        @Html.Raw(Model.htmlStr["procenter"])
+        <!--走进亨恒-->
+        @Html.Raw(Model.htmlStr["aboutddhh"])
+        <!--公司动态-->
+        @Html.Raw(Model.htmlStr["comnews"])
+        <!--底部-->
+        @{
+            Html.RenderAction("h5_bot", "siteParent");
+        }
+    </div>
+</body>
+</html> 

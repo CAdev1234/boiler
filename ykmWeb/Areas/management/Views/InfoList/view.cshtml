@@ -1,0 +1,364 @@
+﻿@model ykmWeb.Models.Opus
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit" />
+    <title>网站后台管理系统</title>
+    <link rel="shortcut icon" href="/img/favicon.ico">
+    <link href="/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <!-- Morris -->
+    <link href="/css/plugins/morris/morris-0.4.3.min.css" rel="stylesheet">
+    <!-- Gritter -->
+    <link href="/js/plugins/gritter/jquery.gritter.css" rel="stylesheet">
+    <link href="/css/animate.css" rel="stylesheet">
+    <link href="/css/style.css?v=4.1.0" rel="stylesheet">
+
+    <script src="/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="/js/uploadstobase64.js"></script>
+    <link href="/css/index.css" rel="stylesheet" type="text/css">
+
+
+    <!--表单验证 -->
+    <script type="text/javascript" src="/bootstrap/Val/bootstrapValidator.min.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="/bootstrap/Val/language/zh_CN.js" charset="UTF-8"></script>
+    <link rel="stylesheet" type="text/css" href="/bootstrap/Val/bootstrapValidator.min.css">
+    <script src="/bootstrap/Val/Validator_form.js"></script>
+
+
+    @*<link href="/bootstrap/datetimepicker/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css">
+
+        <script type="text/javascript" charset="utf-8" src="/yljwebpageedit/ueditor.config.js"></script>
+        <script type="text/javascript" charset="utf-8" src="/yljwebpageedit/ueditor.all.min.js"></script>
+        <script src="/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+        <script type="text/javascript" src="/bootstrap/datetimepicker/bootstrap-datetimepicker.min.js" charset="UTF-8"></script>
+        <script type="text/javascript" src="/bootstrap/datetimepicker/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+
+        <!--文件上传 -->
+        <script src="~/bootstrap/upfiles/fileinput.min.js"></script>
+        <script src="~/bootstrap/upfiles/zh.js"></script>
+        <link href="~/bootstrap/upfiles/fileinput.min.css" rel="stylesheet" />
+        <script src="~/bootstrap/upfiles/upfilesCtrl.js"></script>
+        <script src="~/Scripts/upload_info_ctrl.js"></script>
+        <!--上传附件，自定义文件-->
+        <script src="~/bootstrap/upfiles/userUpfilesCtrl.js"></script>
+        <script src="~/Scripts/upload_files_ctrl.js"></script>
+        <link rel="stylesheet" type="text/css" href="/web_css/upload_files_ctrl.css">
+
+        <script src="~/Scripts/user_main_nclass.js"></script>
+
+        <!-- 打开窗口 -->
+        <script src="~/Scripts/ctrl_form_add.js"></script>
+        <script src="~/layer/layer.js"></script>*@
+</head>
+<body class="gray-bg">
+
+    <div class="wrapper wrapper-content">
+
+        <div class="listbox">
+            <div class="cont">
+                @using (Html.BeginForm("updata", "InfoList", FormMethod.Post, new { id = "form1", name = "form1", onsubmit = "return get_arr_val()" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" value="@ViewBag.savetype" name="savetype" id="savetype" />
+                    <input type="hidden" value="@Model.id" name="id" id="id" />
+
+
+                    <div class="form-horizontal">
+                        <div class="ibox-content p-md m-b">
+                            <div class="from-group m-b-lg">
+                                <h3>基础信息</h3>
+                            </div>
+                            <div class="form-group">
+                                <label for="author" class="col-sm-2 ">作者</label>
+                                <div class="col-sm-10">
+                                    @Model.authorname
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="infodate" class="col-sm-2 ">发布时间</label>
+                                <div class="col-sm-10">
+                                    @Model.infodate
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="praise" class="col-sm-2 ">点赞数</label>
+                                <label for="praise" class="col-sm-1 ">真实数据：</label>
+                                <div class="col-sm-4">
+                                    @Model.praisereal
+                                </div>
+                                <label for="praise" class="col-sm-1 ">页面显示数据：</label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" id="praisefake"
+                                           name="praisefake" placeholder="请输入页面显示数据"
+                                           value="@Model.praisefake">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="browse" class="col-sm-2 ">浏览量</label>
+                                <label for="browse" class="col-sm-1 ">真实数据：</label>
+                                <div class="col-sm-4">
+                                    @Model.browsereal
+                                </div>
+                                <label for="browse" class="col-sm-1 ">页面显示数据：</label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" id="browsefake"
+                                           name="browsefake" placeholder="请输入页面显示数据"
+                                           value="@Model.browsefake">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="comment" class="col-sm-2 ">评论数</label>
+                                <label for="comment" class="col-sm-1 ">真实数据：</label>
+                                <div class="col-sm-4">
+                                    @Model.commentfake
+                                </div>
+                                <label for="comment" class="col-sm-1 ">页面显示数据：</label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" id="commentfake"
+                                           name="commentfake" placeholder="请输入页面显示数据"
+                                           value="@Model.commentfake">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="collection" class="col-sm-2 ">收藏数</label>
+                                <label for="collection" class="col-sm-1 ">真实数据：</label>
+                                <div class="col-sm-4">
+                                    @Model.collectionfake
+                                </div>
+                                <label for="collection" class="col-sm-1 ">页面显示数据：</label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" id="collectionfake"
+                                           name="collectionfake" placeholder="请输入页面显示数据"
+                                           value="@Model.collectionfake">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="state" class="col-sm-2 ">状态</label>
+                                <div class="col-sm-10">
+                                    <select name="opustypes" id="opustypes" class="form-control" data-bv-notempty data-bv-notempty-message="请选择审核状态！">
+                                        <option value="0" @(Model.state == 0 ? "selected" : "")>普通作品</option>
+                                        <option value="1" @(Model.state == 1 ? "selected" : "")>光合道推荐</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="infosort" class="col-sm-2 ">显示排序</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="infosort"
+                                           name="infosort" placeholder="请输入页面显示数据"
+                                           value="@Model.infosort">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="ibox-content p-md m-b">
+                            <div class="from-group m-b-lg">
+                                <h3>基本资料</h3>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                    <input type="text" class="form-control" id="title"
+                                           name="title" placeholder="输入标题显示位置   （字数限制50）"
+                                           value="@Model.title" maxlength="50" required
+                                           data-bv-notempty-message="标题不能为空！">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                    <textarea class="form-control" maxlength="5000" id="description" name="description" style="height:100px;"
+                                              placeholder="作品说明  字数限制5000">@Model.description</textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="ibox-content p-md m-b">
+                            <div class="from-group m-b-lg">
+                                <h3>图片上传</h3>
+                            </div>
+                            <div class="form-group">
+                                <div id="gallery_list" class="listGallery">
+                                    @Html.Raw(ViewBag.gl)
+                                </div>
+                                @*<a class="btn btn-primary" onclick="uploadGallery()">上传</a>
+                                <input type="file" id="gallery" name="gallery" onchange="showImg(this)" style="display:none;">*@
+                            </div>
+                        </div>
+
+                        <div class="ibox-content p-md m-b">
+                            <div class="from-group m-b-lg">
+                                <h3>上传封面</h3>
+                            </div>
+                            <div class="form-group">
+
+                                <img src="@Model.frontcover" width="280" height="170" />
+
+
+                                @*<div id="front_cover" class="listGallery">
+                                    <div class="picbox">
+                                        <input type="hidden" name="img" />
+                                        <img class="col-sm-2" src="~/images/u542.png" />
+                                        <textarea class="col-sm-10" name="txt" maxlength="10" placeholder="图片注释（字数限制1000）"></textarea>
+                                        <a class="btn btn-primary" href="#">删除</a>
+                                    </div>
+                                </div>
+                                <input type="hidden" id="imgData" name="imgData">
+                                <input type="file" id="file" name="file" onchange="showImg(this)">
+                                <label>上传封面比例为 800*600，等比缩放</label>*@
+                            </div>
+
+                        </div>
+
+                        <div class="ibox-content p-md m-b">
+                            <div class="form-group">
+                                <label for="backgroundcolor" class="col-sm-2 ">背景配色</label>
+                                <div class="col-sm-10">
+                                    <select name="backgroundcolor" id="state" class="form-control" data-bv-notempty data-bv-notempty-message="请选择审核状态！">
+                                        <option value="0" @(Model.backgroundcolor == 0 ? "selected" : "")>白</option>
+                                        <option value="1" @(Model.backgroundcolor == 1 ? "selected" : "")>黑</option>
+                                        <option value="2" @(Model.backgroundcolor == 2 ? "selected" : "")>灰</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group mtop1">
+                            <div class=" col-sm-12 tc">
+                                <button type="submit" class="btn btn-primary">全部提交</button>
+                            </div>
+                        </div>
+
+                    </div>
+                }
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            var s = new Valform();
+            s.check("form1", true);
+        });
+    </script>
+
+
+        @*<script>
+            var u = new shownr();
+            u.init("defaultpic", "uploadfiles", "lisgimg");
+            u.show_img("");
+
+            var o = new showfile();
+            o.init("downloadfile", "downloadfiles", "lisgfile");
+            o.show_img("");
+
+            function instrut(f) {
+                u.show_img(f);
+            }
+            function instrutfile(f) {
+                o.show_img(f);
+            }
+
+            $('#datetimepicker1').datetimepicker({
+                language: 'zh-CN',
+                weekStart: 1,
+                todayBtn: 1,
+                autoclose: 1,
+                todayHighlight: 1,
+                startView: 2,
+                minView: 2,
+                forceParse: 0
+            });
+
+            var mc = new main_class_nclass();
+            function set_class(cid, text, t) {
+                if (t == "c") {
+                    $("#classid").val(cid);
+                    $("#classname").val(text);
+                }
+                mc.info_hide_class();
+            }
+
+            function show1() {
+                mc.viewpagename = "menuClassList";
+                mc.info_list_class("c", "info");
+            }
+
+
+
+            $(document).ready(function () {
+                var s = new Valform();
+                s.check("form1", true);
+                var oFileInput = new FileInput();
+                oFileInput.Init("txt_file", instrut);
+                var oDownInput = new DownInput();
+                oDownInput.Init("down_file", instrutfile);
+            });
+
+
+                //var fileOpen = new ctrl_form();
+                //fileOpen.width = "860px";
+                //fileOpen.height = "630px";
+                //fileOpen.title = "上传文件";
+
+                //function showVideoUrl() {
+                //    fileOpen.openPage("/management/videoList/chooseVideo");
+                //}
+
+                //function chooseVideo(id, title) {
+                //    $("#videoId").val(id);
+                //    $("#vider_name").val(title);
+                //    fileOpen.closealert();
+                //}
+                //function delVideo() {
+                //    $("#videoId").val("0");
+                //    $("#vider_name").val("");
+                //}
+
+        </script>
+        <script>
+            function add_gg() {
+                var html = "";
+                html += "<li class=\"flex m-b\">";
+                html += "    <input name=\"ggid\" type=\"hidden\" value=\"0\">";
+                html += "    <div class=\"w30\">";
+                html += "        <select name=\"gg\" class=\"form-control\">";
+                html += "@Html.Raw(ViewData["gg_class_list"])";
+                html += "        </select>";
+                html += "    </div>";
+                html += "    <div class=\"w10 m-l\">";
+                html += "        <label for=\"kc\">单价</label>";
+                html += "    </div>";
+                html += "    <div class=\"w30\">";
+                html += "        <input type=\"text\" class=\"form-control\" name=\"ggprice\" placeholder=\"\" value=\"\" required data-bv-notempty-message=\"规格单价不能为空！\">";
+                html += "    </div>";
+                html += "    <div class=\"w10 m-l\">元</div>";
+                html += "    <div class=\"w10 m-l\"><a href=\"javascript:;\" onclick=\"$(this).parent().parent().remove();\">删除</a></div>";
+                html += "</li>";
+                $("#gg_list").append(html);
+            }
+
+            function get_gg_arr() {
+                var id = $("#id").val();
+                var arr = [];
+                $("input[name='ggid']").each(function (i) {
+                    var gg = $("select[name='gg']").eq(i);
+                    var price = $("input[name='ggprice']").eq(i);
+                    arr.push({ "id": $(this).val(), "pro_id": id, "gg_id": gg.val(), "price": price.val() });
+                });
+                //return arr;
+                $("#ggarr").val(JSON.stringify(arr));
+
+                var arr1 = [];
+                $("input[name='flavorid']").each(function (i) {
+                    var flavor = $("select[name='flavor']").eq(i);
+                    arr1.push({ "id": $(this).val(), "pro_id": id, "flavor_id": flavor.val() });
+                });
+                //return arr;
+                $("#flavorarr").val(JSON.stringify(arr1));
+            }
+        </script>*@
+</body>
+</html>
