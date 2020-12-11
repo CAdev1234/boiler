@@ -61,7 +61,7 @@ ul,li,ol{list-style:none;padding:0px;margin:0px;}
 .fw-normal{font-weight:normal;}
 .fw-bold{font-weight:bold;}
 
-/*font size style*/
+/*font size style 100px in width 1380px*/
 .fst12{font-size:0.12rem;}
 .fst13{font-size:0.13rem;}
 .fst14{font-size:0.14rem;}
@@ -74,6 +74,7 @@ ul,li,ol{list-style:none;padding:0px;margin:0px;}
 .fst21{font-size:0.21rem;}
 .fst22{font-size:0.22rem;}
 .fst24{font-size:0.24rem;}
+.fst25{font-size:0.25rem;}
 .fst26{font-size:0.26rem;}
 .fst30{font-size:0.3rem;}
 .fst35{font-size:0.35rem;}

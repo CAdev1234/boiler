@@ -9,6 +9,7 @@ using ykmWeb.Models;
 using ykmWeb.common;
 using System.Linq.Expressions;
 using ykmWeb.Bll;
+using HtmlAgilityPack;
 
 namespace ykmWeb.sysHtml
 {
@@ -864,9 +865,9 @@ namespace ykmWeb.sysHtml
         public string leftMenu(int cid = 0)
         {
             
-            DalMenuClass dm = new DalMenuClass(s);
+            DalMenuClass dmc = new DalMenuClass(s);
             StringBuilder sb = new StringBuilder();
-            var thisObj = dm.FindList(n => n.Catalogid == cid, 1, null).SingleOrDefault();
+            var thisObj = dmc.FindList(n => n.Catalogid == cid, 1, null).SingleOrDefault();
             if (thisObj != null)
             {
                 int pid = thisObj.Catalogid.Value;
@@ -878,7 +879,7 @@ namespace ykmWeb.sysHtml
                 if (thisObj.ParentID > 0)
                 {
                     int rootid = thisObj.RootID.Value;
-                    var objP = dm.FindList(n => n.RootID == rootid && n.ParentID == 0 && n.language == "cn", 1, getOrderList()).FirstOrDefault();
+                    var objP = dmc.FindList(n => n.RootID == rootid && n.ParentID == 0 && n.language == "cn", 1, getOrderList()).FirstOrDefault();
                     if (objP != null)
                     {
                         pid = objP.Catalogid.Value;
@@ -893,7 +894,7 @@ namespace ykmWeb.sysHtml
                 sb.Append("        <div class=\"flex ai-center padleft16 padright16\" style=\"height:90px;background-color:#d40101\">\n");
                 sb.Append("            <div class=\"c-fff\">\n");
                 sb.Append("                <div class=\"fw-bold\" style=\"font-size:24px\">" + pCatalogname + "</div>\n");
-                sb.Append("                <div>ABOUT US</div>\n");
+                //sb.Append("                <div>ABOUT US</div>\n");
                 sb.Append("            </div>\n");
                 sb.Append("            <button class=\"flex jc-center ai-center\" style=\"border-radius: 50%; color: #d40101; padding: 5px; border: none; background: white; margin-left: auto;\">\n");
                 sb.Append("                <i class=\"fa fa-arrow-right\"></i>\n");
@@ -901,7 +902,7 @@ namespace ykmWeb.sysHtml
                 sb.Append("        </div>\n");
                 sb.Append("        <div class=\"padright16 padleft16 padtop16 padbot16 flex flex-column bg-fff\">\n");
 
-                var ilist = dm.FindList(n => n.leftnavshow == 1 && n.ParentID == pid, 0, getOrderList()).ToList();
+                var ilist = dmc.FindList(n => n.leftnavshow == 1 && n.ParentID == pid, 0, getOrderList()).ToList();
                 if (ilist.Count() > 0)
                 {
                     foreach (var o in ilist)
@@ -926,33 +927,79 @@ namespace ykmWeb.sysHtml
                 }
                 if (ilist.Count == 0)
                 {
-                    sb.Append("            <div class=\"flex ai-center martauto\" style=\"height:40px;cursor:pointer;\" onclick=\"{ window.location.href = " + "'" + "'" + " }\">\n");
+                    sb.Append("            <div class=\"flex ai-center martauto\" style=\"height:40px;cursor:pointer;\" onclick=\"{ window.location.href = '/list?cid=" + thisObj.Catalogid +"'}\">\n");
                     sb.Append("                <div style=\"width: 5px;height: 5px;border-radius: 50%;background-color: #d40101;\"></div>\n");
                     sb.Append("                <div class=\"padleft10\" style=\"color: red\">" + thisObj.Catalogname + "</div>\n");
                     sb.Append("                <div class=\"marlauto fst20\" style=\"color: red;\">></div>\n");
                     sb.Append("            </div>\n");
                 }
-                sb.Append("        </div>\n");
-                sb.Append("    </div>\n");
-                sb.Append("    <div class=\"martop30\">\n");
-                sb.Append("        <div class=\"flex ai-center padleft16 padright16\" style=\"height:90px;background-color:#444444\">\n");
-                sb.Append("            <div class=\"c-fff\">\n");
-                sb.Append("                <div class=\"fw-bold\" style=\"font-size:24px\">联系我们</div>\n");
-                sb.Append("                <div>CONTACT US</div>\n");
-                sb.Append("            </div>\n");
-                sb.Append("            <button onclick=\"{ window.location.href = '/contactus/index' }\"\n");
-                sb.Append("                style=\"border-radius: 50%; color: #444444; display: flex; justify-content: center; align-items: center; padding: 5px; border: none; background: white; margin-left: auto;\">\n");
-                sb.Append("               <i class=\"fa fa-arrow-right\"></i>\n");
-                sb.Append("            </button>\n");
-                sb.Append("        </div>\n");
-                sb.Append("        <div class=\"padleft16 padright16 padtop24 padbot24 flex flex-column bg-fff\">\n");
-                sb.Append("            <div>联系人： 曾经理</div>\n");
-                sb.Append("            <div class=\"martop8\">联系电话： 13941542623</div>\n");
-                sb.Append("            <div class=\"martop8\">联系地址： 凤城市凤山经济管理区头台村三组</div>\n");
-                sb.Append("            <div class=\"martop8\">座机号码： 0415-8262</div>\n");
-                sb.Append("        </div>\n");
-                sb.Append("    </div>\n");
-                sb.Append("</div>\n");
+
+                // Get contact info from database
+                using (ykmWebDbContext s = new ykmWebDbContext())
+                {
+                    DalMenuClass dm = new DalMenuClass(s);
+                    DalInfo di = new DalInfo(s);
+                    var c = dm.find(item => item.Caenname == "ljwm");
+                    var contactInfo = (di.find(item => item.classid == c.Catalogid).cont).ToString();
+                    StringBuilder sb1 = new StringBuilder();
+
+                    var htmlDoc = new HtmlDocument();
+                    htmlDoc.LoadHtml(contactInfo);
+                    var htmlNodes = htmlDoc.DocumentNode.SelectNodes("//p");
+                    string contactname = "";
+                    string mobile = "";
+                    string address = "";
+                    string telephone = "";
+                    foreach (var node in htmlNodes)
+                    {
+                        if (node.InnerText.IndexOf("联系人") != -1)
+                        {
+                            contactname = node.InnerText.Substring(4);
+                            contactname = contactname.Replace(" ", "");
+                            continue;
+                        }
+                        if (node.InnerText.IndexOf("联系电话") != -1)
+                        {
+                            mobile = node.InnerText.Substring(5);
+                            mobile = mobile.Replace(" ", "");
+                            continue;
+                        }
+                        if (node.InnerText.IndexOf("座机号码") != -1)
+                        {
+                            telephone = node.InnerText.Substring(5);
+                            telephone = telephone.Replace(" ", "");
+                            continue;
+                        }
+                        if (node.InnerText.IndexOf("联系地址") != -1)
+                        {
+                            address = node.InnerText.Substring(5);
+                            address = address.Replace(" ", "");
+                            continue;
+                        }
+                    }
+                    sb.Append("        </div>\n");
+                    sb.Append("    </div>\n");
+                    sb.Append("    <div class=\"martop30\">\n");
+                    sb.Append("        <div class=\"flex ai-center padleft16 padright16\" style=\"height:90px;background-color:#444444\">\n");
+                    sb.Append("            <div class=\"c-fff\">\n");
+                    sb.Append("                <div class=\"fw-bold\" style=\"font-size:24px\">联系我们</div>\n");
+                    sb.Append("                <div>CONTACT US</div>\n");
+                    sb.Append("            </div>\n");
+                    sb.Append("            <button onclick=\"{ window.location.href = '/contactus/index' }\"\n");
+                    sb.Append("                style=\"border-radius: 50%; color: #444444; display: flex; justify-content: center; align-items: center; padding: 5px; border: none; background: white; margin-left: auto;\">\n");
+                    sb.Append("               <i class=\"fa fa-arrow-right\"></i>\n");
+                    sb.Append("            </button>\n");
+                    sb.Append("        </div>\n");
+                    sb.Append("        <div class=\"padleft16 padright16 padtop24 padbot24 flex flex-column bg-fff\">\n");
+                    sb.Append("            <div>联系人： "+ contactname +"</div>\n");
+                    sb.Append("            <div class=\"martop8\">联系电话： "+ mobile +"</div>\n");
+                    sb.Append("            <div class=\"martop8\">联系地址： "+ address +"</div>\n");
+                    sb.Append("            <div class=\"martop8\">座机号码： "+ telephone +"</div>\n");
+                    sb.Append("        </div>\n");
+                    sb.Append("    </div>\n");
+                    sb.Append("</div>\n");
+                }
+                
 
 
                 //sb.Append("    <div class=\"title\">" + pCatalogname + "</div>");
@@ -1439,6 +1486,7 @@ namespace ykmWeb.sysHtml
                 var ilist = dm.FindList(n => n.ParentID == pid, 0, getOrderList()).ToList();
                 if (ilist.Count() > 0)
                 {
+                    sb.Append("<div class=\"flex ai-center jc-center fw-bold\" style=\"font-size:30px; color: white; height: 60px; background-color:#d40101\">" + pCatalogname + "</div>");
                     sb.Append("<div class=\"navmenu\">");
                     sb.Append("<div class=\"wrapper wrapper02\" id=\"wrapper02\">");
                     sb.Append("<div class=\"scroller\">");
@@ -1465,7 +1513,8 @@ namespace ykmWeb.sysHtml
                 }
                 else
                 {
-                    sb.Append("<div class=\"list2\" style=\"width:100%;height:0.07rem;background:#e50017\">");
+                    sb.Append("<div class=\"list2\" style=\"width:100%;background:#e50017\">");
+                    sb.Append("<div class=\"flex ai-center jc-center fw-bold\" style=\"font-size:30px; color: white; height: 60px; background-color:#d40101\">" + pCatalogname + "</div>");
                     sb.Append("</div>");
                 }
 
@@ -1792,14 +1841,14 @@ namespace ykmWeb.sysHtml
 
         public string getLmBanner(int cid = 0)
         {
-            DalMenuClass dei = new DalMenuClass(s);
+            DalMenuClass dmc = new DalMenuClass(s);
             string lmimg = "";
-            var i = dei.find(n => n.Catalogid == cid);
+            var i = dmc.find(n => n.Catalogid == cid);
             if (i != null)
             {
                 if (string.IsNullOrEmpty(i.defaultpic))
                 {
-                    var ilist = dei.getParentInfo(i);
+                    var ilist = dmc.getParentInfo(i);
                     lmimg = getLmBanner(ilist);
                 }
                 else
@@ -1812,6 +1861,7 @@ namespace ykmWeb.sysHtml
             {
                 //lmimg = "background: url(/web_images/banner.jpg)";
                 lmimg = "/web_images/banner.jpg";
+                
             }
 
             return "<div class=\"zy_banner\"><img src=\"" + lmimg + "\"></div>";

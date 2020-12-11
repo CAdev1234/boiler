@@ -12,6 +12,7 @@ using ykmWeb.Bll;
 using ykmWeb.sysHtml;
 using System.Text;
 using System.Web.Script.Serialization;
+using HtmlAgilityPack;
 
 namespace ykmWeb.Controllers
 {
@@ -69,26 +70,50 @@ namespace ykmWeb.Controllers
         {
             using (ykmWebDbContext s = new ykmWebDbContext())
             {
-                NavLIst nl = new NavLIst(s);
-                DalSiteSeo dss = new DalSiteSeo(s);
                 DalMenuClass dmc = new DalMenuClass(s);
-                do_visitor dv = new do_visitor();
-                var msg = dmc.FindList(n => n.pclisttype == "msg",1,null).SingleOrDefault();
-                if(msg!= null)
+                DalInfo di = new DalInfo(s);
+                DalSiteSeo dss = new DalSiteSeo(s);
+                var c = dmc.find(item => item.Caenname == "ljwm");
+                var contactInfo = (di.find(item => item.classid == c.Catalogid).cont).ToString();
+                StringBuilder sb1 = new StringBuilder();
+                pageContact contactModel = new pageContact();
+                var htmlDoc = new HtmlDocument();
+                htmlDoc.LoadHtml(contactInfo);
+                var htmlNodes = htmlDoc.DocumentNode.SelectNodes("//p");
+                foreach (var node in htmlNodes)
                 {
-                    ViewBag.msgUrl = nl.getUrlLink(msg);
+                    if (node.InnerText.IndexOf("联系人") != -1)
+                    {
+                        contactModel.name = node.InnerText.Substring(4);
+                        contactModel.name = contactModel.name.Replace(" ", "");
+                        continue;
+                    }
+                    if (node.InnerText.IndexOf("联系电话") != -1)
+                    {
+                        contactModel.mobile = node.InnerText.Substring(5);
+                        contactModel.mobile = contactModel.mobile.Replace(" ", "");
+                        continue;
+                    }
+                    if (node.InnerText.IndexOf("座机号码") != -1)
+                    {
+                        contactModel.telephone = node.InnerText.Substring(5);
+                        contactModel.telephone = contactModel.telephone.Replace(" ", "");
+                        continue;
+                    }
+                    if (node.InnerText.IndexOf("联系地址") != -1)
+                    {
+                        contactModel.address = node.InnerText.Substring(5);
+                        contactModel.address = contactModel.address.Replace(" ", "");
+                        continue;
+                    }
                 }
-                ViewBag.botmenu = nl.LIstbootNav();
-                var ss = dss.FindList(n => n.lang == "cn", 1,null).SingleOrDefault();
+
+                var ss = dss.FindList(n => n.lang == "cn", 1, null).SingleOrDefault();
                 if (ss != null)
                 {
-                    ViewBag.botinfo = ss.botinfo.Replace("\r\n","<br>");
-                    ViewBag.copyinfo = ss.copyinfo;
-                    ViewBag.icpurl = ss.icpurl;
-                    ViewBag.icpinfo = ss.icpinfo;
+                    ViewBag.COPYINFO = ss.copyinfo;
+                    ViewBag.ICPINFO = ss.icpinfo;
                 }
-                ViewBag.ewmimg = nl.getImgList("botewm");
-                dv.addVisitor();
             }
             return View();
         }

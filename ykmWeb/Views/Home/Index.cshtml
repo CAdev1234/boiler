@@ -39,7 +39,7 @@
             <div class="w25">
                 <div style="color:#d40101;font-size:0.24rem;font-weight:500;">PRODUCT</div>
                 <div class="fw-bold fst40">产品展示</div>
-                <p class="martop10 fst17">公司研发的热水锅炉有：型煤、焦煤、散煤、散煤环保无烟燃烧等不同系列，六十多种规格，其产品设计先进，结构合理，大限度满足用户的需</p>
+                <p class="martop10 fst17" style="line-height: 0.26rem">公司研发的热水锅炉有：型煤、焦煤、散煤、散煤环保无烟燃烧等不同系列，六十多种规格，其产品设计先进，结构合理，大限度满足用户的需求。</p>
                 <button class="martop30 bg-d40101 flex ai-center jc-center c-fff bor-none" style="width:120px;height:35px" onclick="{ window.location.href = '/list?cid=67' }">全部产品 ></button>
             </div>
             <div class="w50 txt-center">
@@ -47,49 +47,112 @@
             </div>
             <div class="w25 martop30">
                 <div class="fw-bold fst30" style="color:#d40101">生物质锅炉</div>
-                <div class="martop10 fst17">
-                    操作简单、触摸屏智能控制、温度压力自动控制、一键启停机操作、火力大小任意控制、电机连锁保护，司炉操作省心省力，运行时无任何安装
+                <div class="martop10 fst17" style="line-height: 0.26rem">
+                    操作简单、触摸屏智能控制、温度压力自动控制、一键启停机操作、火力大小任意控制、电机连锁保护，司炉操作省心省力，运行时无任何安装隐患。
                 </div>
                 <button class="martop30 bg-trans flex ai-center jc-center" style="width:120px;height:35px" onclick="{ window.location.href = '/list?cid=116' }">查看详细 ></button>
             </div>
         </div>
 
-        <div class="slideGroup">
-            <div class="parBd bg-fff">
-                @Html.Raw(ViewBag.index_product)
-                @Html.Raw(ViewBag.ydjcsb)
-                @Html.Raw(ViewBag.dzzxydj)
-                @Html.Raw(ViewBag.jxzysb)
-                @Html.Raw(ViewBag.clsysb)
-                @Html.Raw(ViewBag.msjcsb)
-                @Html.Raw(ViewBag.xsxcp)
+
+        <div class="bg-fff" style="padding:20px 100px 20px 100px">
+            <div class="slideGroup-1" style="margin:0 auto">
+                <div class="parBd">
+                    <div class="slideBox-1">
+                        <a class="sPrev" href="javascript:void(0)">
+                            <img src="~/web_images/back-arrow-red-btn.png" />
+                        </a>
+                        <ul>
+                            <li>
+                                <div class="li-item">
+                                    <div class="pic">
+                                        <a href="" target="_blank"><img src="~/web_images/product1.png" /></a>
+                                    </div>
+                                    <div class="title">
+                                        <div>生物质锅炉</div>
+                                        <div>操作简单、触摸屏智能控制、温度压力自动控制、一键启停机操作、火力大小任意控制</div>
+                                        <img src="~/web_images/next-right-btn.png" onclick='window.location.href = "/list?cid=116"' />
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="li-item">
+                                    <div class="pic">
+                                        <a href="" target="_blank"><img src="~/web_images/product2.png" /></a>
+                                    </div>
+                                    <div class="title">
+                                        <div>燃油燃气锅炉</div>
+                                        <div>操作简单、触摸屏智能控制、温度压力自动控制、一键启停机操作、火力大小任意控制</div>
+                                        <img src="~/web_images/next-right-btn.png" onclick='window.location.href = "/list?cid=117"' />
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="li-item">
+                                    <div class="pic">
+                                        <a href="" target="_blank"><img src="~/web_images/product3.png" /></a>
+                                    </div>
+                                    <div class="title">
+                                        <div>燃煤锅炉</div>
+                                        <div>操作简单、触摸屏智能控制、温度压力自动控制、一键启停机操作、火力大小任意控制</div>
+                                        <img src="~/web_images/next-right-btn.png" onclick='window.location.href = "/list?cid=118"' />
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="li-item">
+                                    <div class="pic">
+                                        <a href="" target="_blank"><img src="~/web_images/product4.png" /></a>
+                                    </div>
+                                    <div class="title">
+                                        <div>热风锅炉</div>
+                                        <div>操作简单、触摸屏智能控制、温度压力自动控制、一键启停机操作、火力大小任意控制</div>
+                                        <img src="~/web_images/next-right-btn.png" onclick='window.location.href = "/list?cid=119"' />
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <a class="sNext" href="javascript:void(0)">
+                            <img src="~/web_images/next-arrow-red-btn.png" />
+                        </a>
+                    </div><!-- slideBox End -->
+                </div><!-- parBd End -->
             </div>
         </div>
         <script type="text/javascript">
-            jQuery(".slideGroup .slideBox").slide({ mainCell: "ul", vis: 4, prevCell: ".sPrev", nextCell: ".sNext", effect: "leftLoop" });
+            /*
+            SuperSlide组合注意：
+            1、内外层mainCell、targetCell、prevCell、nextCell等对象不能相同，除非特殊应用；
+            2、注意书写顺序，通常先写内层js调用，再写外层js调用
+            */
 
-            jQuery(".slideGroup").slide({ titCell: ".parHd li", mainCell: ".parBd" });
+            /* 内层图片滚动切换 */
+            jQuery(".slideGroup-1 .slideBox-1").slide({ mainCell: "ul", vis: 3, prevCell: ".sPrev", nextCell: ".sNext", effect: "leftLoop" });
+
+            /* 外层tab切换 */
+            jQuery(".slideGroup-1").slide({ titCell: ".parHd li", mainCell: ".parBd" });
 
         </script>
-        <!---->
+
+        <!--about company-->
         <div class="flex marlauto marrauto maxw1380 martop60">
             <div class="flex flex-column">
                 <div class="flex w100">
                     <img class="w50" src="~/web_images/city-img-1.png">
                     <div class="bg-fff">
                         <div class="flex flex-column" style="padding:0.6rem;">
-                            <div class="fst24">凤城市环宇锅炉制造有限责任公司</div>
-                            <p class="martop10 fst16">公司地处风景秀丽的凤凰山脚下，地理位置优越，交通很便利，是一家有着二十多年生产经验且具有省级“制造许可证”的锅炉生产企业。公司</p>
-                            <button class="martop10 bg-trans flex ai-center jc-center" style="width:120px;height:35px" onclick="{ window.location.href = '/list?cid=74' }">查看详细 ></button>
+                            <div class="fst24 fw-bold">凤城市环宇锅炉制造有限责任公司</div>
+                            <p class="martop10 fst16" style="line-height:0.25rem">公司地处风景秀丽的凤凰山脚下，地理位置优越，交通很便利，是一家有着二十多年生产经验且具有省级“制造许可证”的锅炉生产企业。公司先后荣获农业部管理达标合格单位，省环保产品质量认证单位，省产品质量、服务质量双信誉单位等多项荣誉。</p>
+                            <button class="martop30 bg-trans flex ai-center jc-center" style="width:120px;height:35px" onclick="{ window.location.href = '/list?cid=74' }">查看详细 ></button>
                         </div>
                     </div>
                 </div>
                 <div class="flex w100">
                     <div class="bg-fff">
                         <div class="flex flex-column" style="padding:0.6rem;">
-                            <div class="fst24">企业文化</div>
-                            <p class="martop10 fst16">公司生产设备精良，质量保障体系完整。多年来，我公司凭借着过硬的产品质量，雄原的技术实力，良好的企业信誉，至上的售后服务，塑造了</p>
-                            <button class="martop10 bg-trans flex ai-center jc-center" style="width:120px;height:35px" onclick="{ window.location.href = '/list?cid=75' }">查看详细 ></button>
+                            <div class="fst24 fw-bold">企业文化</div>
+                            <p class="martop10 fst16" style="line-height:0.25rem">公司生产设备精良，质量保障体系完整。多年来，我公司凭借着过硬的产品质量，雄原的技术实力，良好的企业信誉，至上的售后服务，塑造了环宇锅炉企业形象，使之在激烈的市场竞争中立于不败之地</p>
+                            <button class="martop30 bg-trans flex ai-center jc-center" style="width:120px;height:35px" onclick="{ window.location.href = '/list?cid=75' }">查看详细 ></button>
                         </div>
                     </div>
                     <img class="w50" src="~/web_images/city2-img.png">
@@ -97,70 +160,49 @@
             </div>
         </div>
 
-        <!---->
-        <div class="bg-fff flex flex-column marlauto marrauto" style="margin-top: 0.6rem; padding-top:0.5rem; padding-bottom: 0.5rem; max-width:1380px">
-            <div class="flex jc-center ai-center" style="padding-left:1.32rem;padding-right:0.2rem">
-                <div class="marrauto marlauto txt-center">
-                    <div class="fw-bold fst26">案例展示</div>
-                    <div class="fst16 c-d2d2d2">CUSTOMER CASE</div>
-                </div>
-                <button class="bg-trans flex ai-center jc-center" style="width:120px; height:35px" onclick="{ window.location.href = '/list?cid=68' }">查看全部 ></button>
-            </div>
-            <div class="martop20 flex jc-center">
-                @for (int i = 0; i < 4; i++)
-                {
-                    <div class="w25" style="margin-left:0.2rem;margin-right:0.2rem;">
-                        <div class="flex">
-                            <img class="w100" src="~/web_images/customer-case-1.png" />
-                        </div>
-                        <p class="martop10 marbot10 fst16">标题显示位置标题显示位置标题显示位置标 题显示位置标题显示位置</p>
-                        <div style="height:2px;width:100%;background:#78909C"></div>
-                    </div>
-                }
-            </div>
-        </div>
+        <!--Customercase-->
+        @Html.Raw(ViewBag.index_customercase)
 
-        <!---->
+        <!--Contact info-->
         <div class="flex marlauto marrauto maxw1380 martop60" style="height:1.08rem;margin-bottom:-0.5rem">
             <div class="flex w100 bg-fff" style="z-index:999">
                 <div class="flex jc-center ai-center marlauto marrauto">
-                    <img src="~/web_images/mobile-icon.png" />
+                    <img src="/web_images/mobile-icon.png">
                     <div class="" style="margin-left:0.2rem">
                         <div class="c-d2d2d2 fst15">联系电话</div>
-                        <div class="fw-bold fst17">13941542623</div>
+                        <div class="fw-bold fst17">@ViewBag.MOBILE</div>
                     </div>
                 </div>
                 <div class="h100 w2px bg-d2d2d2"></div>
                 <div class="flex jc-center ai-center marlauto marrauto">
-                    <img src="~/web_images/user-icon.png" />
+                    <img src="/web_images/user-icon.png">
                     <div class="marleft20">
                         <div class="c-d2d2d2 fst15">联系人</div>
-                        <div class="fw-bold fst17">曾经理</div>
+                        <div class="fw-bold fst17">@ViewBag.CONTNAME</div>
                     </div>
                 </div>
                 <div class="h100 w2px bg-d2d2d2"></div>
                 <div class="flex jc-center ai-center marlauto marrauto">
-                    <img src="~/web_images/location-icon.png" />
+                    <img src="/web_images/location-icon.png">
                     <div class="marleft20">
                         <div class="c-d2d2d2 fst15">联系地址</div>
-                        <div class="fw-bold fst17">凤城市凤山经济管理区头台村三组</div>
+                        <div class="fw-bold fst17">@ViewBag.ADDRESS</div>
                     </div>
                 </div>
                 <div class="h100 w2px bg-d2d2d2"></div>
                 <div class="flex jc-center ai-center marlauto marrauto">
-                    <img src="~/web_images/dial-icon.png" />
+                    <img src="/web_images/dial-icon.png">
                     <div class="marleft20">
                         <div class="c-d2d2d2 fst15">座机号码</div>
-                        <div class="fw-bold fst17">0415-8262338</div>
+                        <div class="fw-bold fst17">@ViewBag.TELEPHONE</div>
                     </div>
                 </div>
                 <div class="h100 w2px bg-d2d2d2"></div>
                 <div class="flex" style="padding-left:0.4rem;padding-right:0.4rem;padding-top:0.1rem;padding-bottom:0.1rem;object-fit:fill;">
-                    <img class="w100" src="~/web_images/qrcode.png" />
+                    <img src="@ViewBag.QRCODE"/>
                 </div>
             </div>
         </div>
-
         @{
             Html.RenderAction("boot", "siteParent", new { cid = ViewBag.cid });
         }
@@ -179,39 +221,59 @@
                 <div class="fw-bold fst36">产品展示</div>
             </div>
             <!--产品列表-->
+            <div class="picScroll-left">
+                <div class="hd">
+                    <a class="next"></a>
+                    <ul></ul>
+                    <a class="prev"></a>
+                </div>
+                <div class="bd">
+                    <ul class="picList">
+                        <li>
+                            <a href="">
+                                <div class="left"><img src="~/web_images/product1.png" /></div>
+                                <div class="right">
+                                    <div class="tit">生物质锅炉</div><div class="more">操作简单、触摸屏智能控制、温度压力自动控制、一键启停机操作、火力大小任意控制</div>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="">
+                                <div class="left"><img src="~/web_images/product2.png" /></div>
+                                <div class="right">
+                                    <div class="tit">燃油燃气锅炉</div><div class="more">操作简单、触摸屏智能控制、温度压力自动控制、一键启停机操作、火力大小任意控制</div>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="">
+                                <div class="left"><img src="~/web_images/product3.png" /></div>
+                                <div class="right">
+                                    <div class="tit">燃煤锅炉</div><div class="more">操作简单、触摸屏智能控制、温度压力自动控制、一键启停机操作、火力大小任意控制</div>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="">
+                                <div class="left"><img src="~/web_images/product4.png" /></div>
+                                <div class="right">
+                                    <div class="tit">热风锅炉</div><div class="more">操作简单、触摸屏智能控制、温度压力自动控制、一键启停机操作、火力大小任意控制</div>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <script>
+                jQuery(".picScroll-left").slide({ titCell: ".hd ul", mainCell: ".bd ul", autoPage: true, effect: "leftLoop", autoPlay: false, vis: 2, delayTime: 700 })
+            </script>
             @Html.Raw(ViewBag.sj_pro)
 
-            <!--走进奥龙-->
-            @Html.Raw(ViewBag.sj_aolong)
-            <!--新闻中心-->
-            @Html.Raw(ViewBag.sj_index_news)
-            <!--栏目链接-->
-            <div class="link">
-                <ul>
-                    <li class="hj">
-                        <a href="@ViewBag.hjzs_url">
-                            <div class="tit">@ViewBag.hjzs</div>
-                        </a>
-                    </li>
-                    <li class="zx">
-                        <a href="@ViewBag.zlxz_url">
-                            <div class="tit">@ViewBag.zlxz</div>
-                        </a>
-                    </li>
-                    <li class="yx">
-                        <a href="@ViewBag.yxwl_url">
-                            <div class="tit">@ViewBag.yxwl</div>
-                        </a>
-                    </li>
-                    <li class="ly">
-                        <a href="@ViewBag.zxly_url">
-                            <div class="tit">@ViewBag.zxly</div>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-            <!--一键拨号-->
-            @Html.Raw(ViewBag.sj_lxwm)
+            <!--about us-->
+            @Html.Raw(ViewBag.sj_aboutus)
+            <!--customercase-->
+            @Html.Raw(ViewBag.sj_customercase)
+            
             <!--底部版权-->
             @{
                 Html.RenderAction("h5_bot", "siteParent", new { cid = ViewBag.cid });

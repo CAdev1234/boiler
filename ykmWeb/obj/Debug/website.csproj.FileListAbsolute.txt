@@ -459,6 +459,7 @@ E:\Gitee\soft\ykmWeb\bin\Antlr3.Runtime.dll
 E:\Gitee\soft\ykmWeb\bin\EntityFramework.dll
 E:\Gitee\soft\ykmWeb\bin\EntityFramework.Extended.dll
 E:\Gitee\soft\ykmWeb\bin\EntityFramework.SqlServer.dll
+E:\Gitee\soft\ykmWeb\bin\HtmlAgilityPack.dll
 E:\Gitee\soft\ykmWeb\bin\Microsoft.AspNet.TelemetryCorrelation.dll
 E:\Gitee\soft\ykmWeb\bin\Microsoft.Web.Infrastructure.dll
 E:\Gitee\soft\ykmWeb\bin\Newtonsoft.Json.dll
@@ -493,6 +494,8 @@ E:\Gitee\soft\ykmWeb\bin\EntityFramework.xml
 E:\Gitee\soft\ykmWeb\bin\EntityFramework.Extended.xml
 E:\Gitee\soft\ykmWeb\bin\EntityFramework.Extended.dll.config
 E:\Gitee\soft\ykmWeb\bin\EntityFramework.SqlServer.xml
+E:\Gitee\soft\ykmWeb\bin\HtmlAgilityPack.pdb
+E:\Gitee\soft\ykmWeb\bin\HtmlAgilityPack.xml
 E:\Gitee\soft\ykmWeb\bin\Newtonsoft.Json.pdb
 E:\Gitee\soft\ykmWeb\bin\Newtonsoft.Json.xml
 E:\Gitee\soft\ykmWeb\bin\System.Web.Helpers.xml

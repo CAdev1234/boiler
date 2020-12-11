@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HtmlAgilityPack;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,6 +8,9 @@ using ykmWeb.Bll;
 using ykmWeb.Dal;
 using ykmWeb.Dal.Serv;
 using ykmWeb.Models;
+
+
+
 
 namespace ykmWeb.sysHtml
 {
@@ -158,9 +162,7 @@ namespace ykmWeb.sysHtml
                         {
                             if (CurPage == i)
                             {
-
                                 activeStyle = "class=\"on\"";
-
                                 sb.Append("<li " + activeStyle + " ><a href=\"" + pagename + "?pageid=" + i.ToString() + pageLinkText + "\"  >" + i.ToString() + "</a></li>");
                             }
                             else
@@ -171,7 +173,6 @@ namespace ykmWeb.sysHtml
 
                         if (pagecont >= 18 && CurPage < (pagecont - 7))
                         {
-
                             for (int i = pagecont - 2; i <= pagecont; i++)
                             {
                                 if (i == CurPage)
@@ -1189,9 +1190,6 @@ namespace ykmWeb.sysHtml
             return sb.ToString();
         }
 
-
-
-
         //上海奥龙
         #region 首页产品栏目滚动
         public string index_lanmu()
@@ -1270,6 +1268,7 @@ namespace ykmWeb.sysHtml
             return sb.ToString();
         }
         #endregion
+
         #region 首页产品中心
         public string index_product()
         {
@@ -1312,7 +1311,191 @@ namespace ykmWeb.sysHtml
             }
             return sb.ToString();
         }
+
+        public string index_customercase()
+        {
+            //<div class="bg-fff flex flex-column marlauto marrauto" style="margin-top: 0.6rem; padding-top:0.5rem; padding-bottom: 0.5rem; max-width:1380px">
+            //    <div class="flex jc-center ai-center" style="padding-left:1.32rem;padding-right:0.2rem">
+            //        <div class="marrauto marlauto txt-center">
+            //            <div class="fw-bold fst26">案例展示</div>
+            //            <div class="fst16 c-d2d2d2">CUSTOMER CASE</div>
+            //        </div>
+            //        <button class="bg-trans flex ai-center jc-center" style="width:120px; height:35px" onclick="{ window.location.href = '/list?cid=68' }">查看全部 ></button>
+            //    </div>
+            //    <div class="martop20 flex jc-center">
+            //        @for(int i = 0; i< 4; i++)
+            //        {
+            //            <div class="w25" style="margin-left:0.2rem;margin-right:0.2rem;">
+            //                <div class="flex">
+            //                    <img class="w100" src="~/web_images/customer-case-1.png" />
+            //                </div>
+            //                <p class="martop10 marbot10 fst16">标题显示位置标题显示位置标题显示位置标 题显示位置标题显示位置</p>
+            //                <div style = "height:2px;width:100%;background:#78909C" ></ div >
+            //            </ div >
+            //        }
+            //    </div>
+            //</div>
+            StringBuilder sb = new StringBuilder();
+            using (ykmWebDbContext s = new ykmWebDbContext())
+            {
+                DalMenuClass dmc = new DalMenuClass(s);
+                DalInfo di = new DalInfo(s);
+                var c = dmc.find(n => n.Caenname == "hjzs");
+                var customercaseList = di.FindList(n => n.classid == c.Catalogid, 0, null).ToList();
+                
+                sb.Append("<div class=\"bg-fff flex flex-column marlauto marrauto\" style=\"margin-top: 0.6rem; padding-top:0.5rem; padding-bottom: 0.5rem; max-width:1380px\">\n");
+                sb.Append("            <div class=\"flex jc-center ai-center\" style=\"padding-left:1.32rem;padding-right:0.2rem\">\n");
+                sb.Append("                <div class=\"marrauto marlauto txt-center\">\n");
+                sb.Append("                    <div class=\"fw-bold fst26\">"+ c.Catalogname +"</div>\n");
+                sb.Append("                    <div class=\"fst16 c-d2d2d2\">CUSTOMER CASE</div>\n");
+                sb.Append("                </div>\n");
+                sb.Append("                <button class=\"bg-trans flex ai-center jc-center\" style=\"width:120px; height:35px\" onclick=\"{ window.location.href = "+ "'/list?cid=" + c.Catalogid + "' }\">&#26597;&#30475;&#20840;&#37096; ></button>\n");
+                sb.Append("            </div>\n");
+                sb.Append("            <div class=\"martop20 flex jc-center\">\n");
+                for(int i = 0; i < customercaseList.Count; i++)
+                {
+                    sb.Append("                    <div class=\"w25 index-customercase-item\" style=\"margin-left:0.2rem;margin-right:0.2rem;\" onclick=\"window.location.href='cont?id="+ customercaseList[i].id +"'\">\n");
+                    sb.Append("                        <div class=\"flex\">\n");
+                    sb.Append("                            <img class=\"w100\" src=\""+ customercaseList[i].uploadfiles + "\" />\n");
+                    sb.Append("                        </div>\n");
+                    sb.Append(                         customercaseList[i].cont.ToString());
+                    sb.Append("                        <div style=\"height:2px;width:100%;background:#78909C\"></div>\n");
+                    sb.Append("                    </div>\n");
+                }
+                sb.Append("            </div>\n");
+                sb.Append("</div>\n");
+            }
+            return sb.ToString();
+        }
+
+        public string index_contact()
+        {
+            //<div class="flex marlauto marrauto maxw1380 martop60" style="height:1.08rem;margin-bottom:-0.5rem">
+            //    <div class="flex w100 bg-fff" style="z-index:999">
+            //        <div class="flex jc-center ai-center marlauto marrauto">
+            //            <img src = "~/web_images/mobile-icon.png" />
+            //            < div class="" style="margin-left:0.2rem">
+            //                <div class="c-d2d2d2 fst15">联系电话</div>
+            //                <div class="fw-bold fst17">13941542623</div>
+            //            </div>
+            //        </div>
+            //        <div class="h100 w2px bg-d2d2d2"></div>
+            //        <div class="flex jc-center ai-center marlauto marrauto">
+            //            <img src = "~/web_images/user-icon.png" />
+            //            < div class="marleft20">
+            //                <div class="c-d2d2d2 fst15">联系人</div>
+            //                <div class="fw-bold fst17">曾经理</div>
+            //            </div>
+            //        </div>
+            //        <div class="h100 w2px bg-d2d2d2"></div>
+            //        <div class="flex jc-center ai-center marlauto marrauto">
+            //            <img src = "~/web_images/location-icon.png" />
+            //            < div class="marleft20">
+            //                <div class="c-d2d2d2 fst15">联系地址</div>
+            //                <div class="fw-bold fst17">凤城市凤山经济管理区头台村三组</div>
+            //            </div>
+            //        </div>
+            //        <div class="h100 w2px bg-d2d2d2"></div>
+            //        <div class="flex jc-center ai-center marlauto marrauto">
+            //            <img src = "~/web_images/dial-icon.png" />
+            //            < div class="marleft20">
+            //                <div class="c-d2d2d2 fst15">座机号码</div>
+            //                <div class="fw-bold fst17">0415-8262338</div>
+            //            </div>
+            //        </div>
+            //        <div class="h100 w2px bg-d2d2d2"></div>
+            //        <div class="flex" style="padding-left:0.4rem;padding-right:0.4rem;padding-top:0.1rem;padding-bottom:0.1rem;object-fit:fill;">
+            //            <img class="w100" src="~/web_images/qrcode.png" />
+            //        </div>
+            //    </div>
+            //</div>
+
+            StringBuilder sb = new StringBuilder();
+            using (ykmWebDbContext s = new ykmWebDbContext())
+            {
+                DalMenuClass dmc = new DalMenuClass(s);
+                DalInfo di = new DalInfo(s);
+                var c = dmc.find(item => item.Caenname == "ljwm");
+                var contactInfo = (di.find(item => item.classid == c.Catalogid).cont).ToString();
+                StringBuilder sb1 = new StringBuilder();
+                pageContact contactModel = new pageContact();
+               
+                var htmlDoc = new HtmlDocument();
+                htmlDoc.LoadHtml(contactInfo);
+                var htmlNodes = htmlDoc.DocumentNode.SelectNodes("//p");
+                foreach (var node in htmlNodes)
+                {
+                    if (node.InnerText.IndexOf("联系人") != -1)
+                    {
+                        contactModel.name = node.InnerText.Substring(4);
+                        contactModel.name = contactModel.name.Replace(" ", "");
+                        continue;
+                    }
+                    if (node.InnerText.IndexOf("联系电话") != -1)
+                    {
+                        contactModel.mobile = node.InnerText.Substring(5);
+                        contactModel.mobile = contactModel.mobile.Replace(" ", "");
+                        continue;
+                    }
+                    if (node.InnerText.IndexOf("座机号码") != -1)
+                    {
+                        contactModel.telephone = node.InnerText.Substring(5);
+                        contactModel.telephone = contactModel.telephone.Replace(" ", "");
+                        continue;
+                    }
+                    if (node.InnerText.IndexOf("联系地址") != -1)
+                    {
+                        contactModel.address = node.InnerText.Substring(5);
+                        contactModel.address = contactModel.address.Replace(" ", "");
+                        continue;
+                    }
+                }
+
+                sb.Append("<div class=\"flex marlauto marrauto maxw1380 martop60\" style=\"height:1.08rem;margin-bottom:-0.5rem\">\n");
+                sb.Append("            <div class=\"flex w100 bg-fff\" style=\"z-index:999\">\n");
+                sb.Append("                <div class=\"flex jc-center ai-center marlauto marrauto\">\n");
+                sb.Append("                    <img src=\"/web_images/mobile-icon.png\" />\n");
+                sb.Append("                    <div class=\"\" style=\"margin-left:0.2rem\">\n");
+                sb.Append("                        <div class=\"c-d2d2d2 fst15\">联系电话</div>\n");
+                sb.Append("                        <div class=\"fw-bold fst17\">" + contactModel.mobile + "</div>\n");
+                sb.Append("                    </div>\n");
+                sb.Append("                </div>\n");
+                sb.Append("                <div class=\"h100 w2px bg-d2d2d2\"></div>\n");
+                sb.Append("                <div class=\"flex jc-center ai-center marlauto marrauto\">\n");
+                sb.Append("                    <img src=\"/web_images/user-icon.png\" />\n");
+                sb.Append("                    <div class=\"marleft20\">\n");
+                sb.Append("                        <div class=\"c-d2d2d2 fst15\">联系人</div>\n");
+                sb.Append("                        <div class=\"fw-bold fst17\">"+ contactModel.name +"</div>\n");
+                sb.Append("                    </div>\n");
+                sb.Append("                </div>\n");
+                sb.Append("                <div class=\"h100 w2px bg-d2d2d2\"></div>\n");
+                sb.Append("                <div class=\"flex jc-center ai-center marlauto marrauto\">\n");
+                sb.Append("                    <img src=\"/web_images/location-icon.png\" />\n");
+                sb.Append("                    <div class=\"marleft20\">\n");
+                sb.Append("                        <div class=\"c-d2d2d2 fst15\">联系地址</div>\n");
+                sb.Append("                        <div class=\"fw-bold fst17\">" + contactModel.address +"</div>\n");
+                sb.Append("                    </div>\n");
+                sb.Append("                </div>\n");
+                sb.Append("                <div class=\"h100 w2px bg-d2d2d2\"></div>\n");
+                sb.Append("                <div class=\"flex jc-center ai-center marlauto marrauto\">\n");
+                sb.Append("                    <img src=\"/web_images/dial-icon.png\" />\n");
+                sb.Append("                    <div class=\"marleft20\">\n");
+                sb.Append("                        <div class=\"c-d2d2d2 fst15\">座机号码</div>\n");
+                sb.Append("                        <div class=\"fw-bold fst17\">" + contactModel.telephone + "</div>\n");
+                sb.Append("                    </div>\n");
+                sb.Append("                </div>\n");
+                sb.Append("                <div class=\"h100 w2px bg-d2d2d2\"></div>\n");
+                sb.Append("                <div class=\"flex\" style=\"padding-left:0.4rem;padding-right:0.4rem;padding-top:0.1rem;padding-bottom:0.1rem;object-fit:fill;\">\n");
+                //sb.Append("                    <img class=\"w100\" src=\"" + contactModel.qr_url + "\" />\n");
+                sb.Append("                </div>\n");
+                sb.Append("            </div>\n");
+                sb.Append("        </div>\n");
+
+            }
+            return sb.ToString();
+        }
         #endregion
+
         #region 首页产品中心
         public string ydjcsb()
         {
@@ -1360,6 +1543,7 @@ namespace ykmWeb.sysHtml
             return sb.ToString();
         }
         #endregion
+
         #region 首页产品中心
         public string dzzxydj()
         {
@@ -1407,6 +1591,7 @@ namespace ykmWeb.sysHtml
             return sb.ToString();
         }
         #endregion
+
         #region 首页产品中心
         public string jxzysb()
         {
@@ -1454,6 +1639,7 @@ namespace ykmWeb.sysHtml
             return sb.ToString();
         }
         #endregion
+
         #region 首页产品中心
         public string clsysb()
         {
@@ -1566,6 +1752,7 @@ namespace ykmWeb.sysHtml
             return sb.ToString();
         }
         #endregion
+
         #region 首页新闻中心
         public string index_news()
         {
@@ -1661,6 +1848,7 @@ namespace ykmWeb.sysHtml
             return sb.ToString();
         }
         #endregion
+
         #region 首页联系我们
         public string index_lxwm()
         {
@@ -1715,6 +1903,7 @@ namespace ykmWeb.sysHtml
             return sb.ToString();
         }
         #endregion
+
         #region 首页友情链接
         public string index_link()
         {
@@ -1815,26 +2004,11 @@ namespace ykmWeb.sysHtml
             return sb.ToString();
         }
         #endregion
+
+
         #region 首页手机产品展示
         public string index_sj_pro()
         {
-            //  <div class="pro_list">
-            //    <div class="top_tit">
-            //        <div class="title"><a href="#">产品展示</a></div>
-            //        <div class="more"><a href="#">全部产品</a></div>
-            //    </div>
-            //    <div class="list">
-            //        <ul>
-            //            <li>
-            //                <a href="#">
-            //                    <div class="slt"><img src="/web_images/pro_39.jpg"></div>
-            //                    <div class="title">HB-3000E电子布氏硬度计</div>
-            //                    <div class="lanmu">布氏硬度计系列</div>
-            //                </a>
-            //            </li>
-            //        </ul>
-            //    </div>
-            //</div>
             StringBuilder sb = new StringBuilder();
             using (ykmWebDbContext s = new ykmWebDbContext())
             {
@@ -1845,73 +2019,136 @@ namespace ykmWeb.sysHtml
                 List<int> arrid = new List<int>();
                 var c = dmc.find(n => n.Caenname == "cpzs");
                 arrid = dcv.showallclassid(c.Caenname);
-                //sb.Append("<div class=\"pro_list\">");
-                //sb.Append("<div class=\"c-red txt-center fst24\">Product</div>");
-                //sb.Append("<div class=\"top_tit\">");
-                //sb.Append("<div class=\"title\"><a href=\"" + nl.getUrlLink(c) + "\">" + c.Catalogname + "</a></div>");
-                //sb.Append("</div>");
-                //if (arrid.Count != 0)
-                //{
-                //    sb.Append("<div class=\"list\">");
-                //    sb.Append("<ul>");
-                //    var li = di.FindList(n => arrid.Contains(n.classid.Value), 6, new OrderModelField[] { new OrderModelField { propertyName = "istop", IsDESC = true }, new OrderModelField { propertyName = "sorts", IsDESC = true }, new OrderModelField { propertyName = "insertdate", IsDESC = true }, new OrderModelField { propertyName = "id", IsDESC = true } }).ToList();
-                //    if (li.Count > 0)
-                //    {
-                //        string href = "";
-                //        foreach (var i in li)
-                //        {
-                //            href = nl.getContLink(dmc.find(n => n.Catalogid == i.classid)) + "?id=" + i.id;
-                //            sb.Append("<li>");
-                //            sb.Append("<a href=\"" + href + "\">");
-                //            sb.Append("<div class=\"slt\"><img src=\"" + i.defaultpic + "\"></div>");
-                //            sb.Append("<div class=\"title\">" + i.title + "</div>");
-                //            sb.Append("<div class=\"lanmu\">" + dmc.getCatalogName(i.classid.Value) + "</div>");
-                //            sb.Append("</a>");
-                //            sb.Append("</li>");
-                //        }
-                //    }
-                //    sb.Append("</ul>");
-                //    sb.Append("</div>");
-                //}
-                //sb.Append("</div>");
 
-
-                sb.Append("<div class=\"picScroll-left\">");
-                sb.Append("<div class=\"hd\">");
-                sb.Append("<a class=\"next\"></a>");
-                sb.Append("<ul></ul>");
-                sb.Append("<a class=\"prev\"></a>");
-                sb.Append("<span class=\"pageState\"></span>");
-                sb.Append("</div>");
-                sb.Append("<div class=\"bd\">");
-                sb.Append("<ul class=\"picList\">");
+                sb.Append("<div class=\"pro_list\">");
                 if (arrid.Count != 0)
                 {
+                    sb.Append("<div class=\"list\">");
+                    sb.Append("<ul>");
                     var li = di.FindList(n => arrid.Contains(n.classid.Value), 6, new OrderModelField[] { new OrderModelField { propertyName = "istop", IsDESC = true }, new OrderModelField { propertyName = "sorts", IsDESC = true }, new OrderModelField { propertyName = "insertdate", IsDESC = true }, new OrderModelField { propertyName = "id", IsDESC = true } }).ToList();
-                    foreach (var i in li)
+                    if (li.Count > 0)
                     {
-                        sb.Append("<li>");
-                        sb.Append("<a href=\"" + dmc.getCatalogName(i.classid.Value) + "\">");
-                        sb.Append("<div class=\"left\"><img src=\"" + "/web_images/product1.png" + "\"></div>");
-                        sb.Append("<div class=\"right\">");
-                        sb.Append("<div class=\"tit\">" + i.title + "</div>");
-                        //sb.Append("<div class=\"more\"><img src=\"/web_images/more_19.jpg\"></div>");
-                        sb.Append("<div class=\"more\">操作简单、触摸屏智能控制、温度压力自动控制、一键启停机操作、火力大小任意控制、电</div>\n");
-                        sb.Append("</div>");
-                        sb.Append("</a>");
-                        sb.Append("</li>");
+                        string href = "";
+                        foreach (var i in li)
+                        {
+                            href = nl.getContLink(dmc.find(n => n.Catalogid == i.classid)) + "?id=" + i.id;
+                            sb.Append("<li style=\"\">");;
+                            sb.Append("<a class=\"flex\" href=\"" + href + "\">");
+                            sb.Append("<div class=\"slt\"><img src=\"" + i.defaultpic + "\"></div>");
+                            sb.Append("<div style=\"min-width:220px;padding-left:40px;padding-right:10px;\">");
+                            sb.Append("<div class=\"title\">" + dmc.getCatalogName(i.classid.Value) + "</div>");
+                            sb.Append("<div class=\"lanmu\">" + dmc.getCatalogName(i.classid.Value) + "</div>");
+                            sb.Append("<img style=\"width:30px\" src=\"/web_images/next-arrow-red-btn.png\" />");
+                            sb.Append("</div>");
+                            sb.Append("</a>");
+                            sb.Append("</li>");
+                        }
                     }
+                    sb.Append("</ul>");
+                    sb.Append("</div>");
                 }
-                sb.Append("</ul>");
+                sb.Append("<button onclick=\"window.location.href='/list?cid=67'\">查看全部产品</button>");
                 sb.Append("</div>");
-                sb.Append("</div>");
-                sb.Append("<script type=\"text/javascript\">");
-                sb.Append("jQuery(\".picScroll-left\").slide({ titCell: \".hd ul\", mainCell: \".bd ul\", autoPage: true, effect: \"leftLoop\", autoPlay: false, vis: 2, delayTime: 700 });");
-                sb.Append("</script>");
+            }
+            return sb.ToString();
+        }
+
+        public string index_sj_aboutus() {
+            StringBuilder sb = new StringBuilder();
+            sb.Append("<div class=\"marrauto marlauto martop40 bg-fff\">\n");
+            sb.Append("	<div class=\"flex flex-column\"style=\"padding-top:20px;\">\n");
+            sb.Append("		<div class=\"flex\" style=\"padding-left:10px;padding-right:10px;\">\n");
+            sb.Append("			<div class=\"txt-center w50 cprofile-nav\">\n");
+            sb.Append("				<div style=\"height:3px;background:#d40101\"></div>\n");
+            sb.Append("				<div style=\"margin-top:10px;font-size:30px;cursor:pointer;color:#d40101\" onclick=\"chooseCompanyProfile()\">公司简介</div>\n");
+            sb.Append("			</div>\n");
+            sb.Append("			<div class=\"txt-center w50 cculture-nav\">\n");
+            sb.Append("				<div style=\"height:3px;background:#78909C;\"></div>\n");
+            sb.Append("				<div style=\"margin-top:10px;font-size:30px;cursor:pointer;color:#78909C\" onclick=\"chooseCompanyCulture()\">企业文化</div>\n");
+            sb.Append("			</div>\n");
+            sb.Append("		</div>\n");
+            sb.Append("		<div class=\"cprofile-section\" style=\"padding:10px;\">\n");
+            sb.Append("			<img class=\"w100\" src=\"/web_images/city-img-1.png\">\n");
+            sb.Append("			<div class=\"bg-fff\">\n");
+            sb.Append("				<div class=\"flex flex-column\">\n");
+            sb.Append("					<div class=\"fw-bold\" style=\"margin-top:10px;font-size:24px\">凤城市环宇锅炉制造有限责任公司</div>\n");
+            sb.Append("					<p style=\"font-size:16px;margin-top:10px;\">公司地处风景秀丽的凤凰山脚下，地理位置优越，交通很便利，是一家有着二十多年生产经验且具有省级“制造许可证”的锅炉生产企业。公司</p>\n");
+            sb.Append("					<button class=\"flex jc-center ai-center bg-d40101 martop40 w100 fst24 c-fff\" style=\"height: 50px;border:none;\" onclick=\"window.location.href='list?cid=74'\">了解全部</button>\n");
+            sb.Append("				</div>\n");
+            sb.Append("			</div>\n");
+            sb.Append("		</div>\n");
+            sb.Append("		<div class=\"cculture-section\" style=\"display: none;padding:10px;\">\n");
+            sb.Append("			<div class=\"bg-fff\">\n");
+            sb.Append("				<img class=\"w100\" src=\"/web_images/city2-img.png\">\n");
+            sb.Append("				<div class=\"flex flex-column\">\n");
+            sb.Append("					<div class=\"fw-bold\" style=\"font-size:24px;margin-top:10px;\">企业文化</div>\n");
+            sb.Append("					<p class=\"\" style=\"font-size:16px;margin-top:10px;\">公司生产设备精良，质量保障体系完整。多年来，我公司凭借着过硬的产品质量，雄原的技术实力，良好的企业信誉，至上的售后服务，塑造了</p>\n");
+            sb.Append("					<button class=\"flex jc-center ai-center bg-d40101 martop40 w100 fst24 c-fff\" style=\"height: 50px;border:none;\" onclick=\"window.location.href='list?cid=75'\">了解全部</button>\n");
+            sb.Append("				</div>\n");
+            sb.Append("			</div>\n");
+            sb.Append("		</div>\n");
+            sb.Append("	</div>\n");
+            sb.Append("</div>\n");
+
+            sb.Append("<script type=\"text/javascript\">");
+            sb.Append("function chooseCompanyProfile() {\n");
+            sb.Append("        $('.cprofile-nav div:nth-child(1)').css(\"cssText\", \"background: #d40101;height:3px\")\n");
+            sb.Append("        $('.cprofile-nav div:nth-child(2)').css(\"cssText\", \"color: #d40101;font-size:30px;cursor:pointer;margin-top:10px;\")\n");
+            sb.Append("        $('.cculture-nav div:nth-child(1)').css(\"cssText\", \"background: #78909C;height:3px\")\n");
+            sb.Append("        $('.cculture-nav div:nth-child(2)').css(\"cssText\", \"color: #78909C;font-size:30px;cursor:pointer;margin-top:10px;\")\n");
+            sb.Append("        $('.cprofile-section').css(\"cssText\", \"display: block;padding:10px;\")\n");
+            sb.Append("        $('.cculture-section').css(\"cssText\", \"display: none\")\n");
+            sb.Append("    }\n");
+            sb.Append("    function chooseCompanyCulture() {\n");
+            sb.Append("        $('.cculture-nav div:nth-child(1)').css(\"cssText\", \"background: #d40101;height:3px\")\n");
+            sb.Append("        $('.cculture-nav div:nth-child(2)').css(\"cssText\", \"color: #d40101;font-size:30px;cursor:pointer;margin-top:10px;\")\n");
+            sb.Append("        $('.cprofile-nav div:nth-child(1)').css(\"cssText\", \"background: #78909C;height:3px\")\n");
+            sb.Append("        $('.cprofile-nav div:nth-child(2)').css(\"cssText\", \"color: #78909C;font-size:30px;cursor:pointer;margin-top:10px;\")\n");
+            sb.Append("        $('.cprofile-section').css(\"cssText\", \"display: none\")\n");
+            sb.Append("        $('.cculture-section').css(\"cssText\", \"display: block;padding:10px;\")\n");
+            sb.Append("    }\n");
+            sb.Append("</script>");
+            return sb.ToString();
+        }
+
+        public string index_sj_customercase() {
+            StringBuilder sb = new StringBuilder();
+            using (ykmWebDbContext s = new ykmWebDbContext())
+            {
+                DalMenuClass dmc = new DalMenuClass(s);
+                DalInfo di = new DalInfo(s);
+                var c = dmc.find(n => n.Caenname == "hjzs");
+                var customercaseList = di.FindList(n => n.classid == c.Catalogid, 0, null).ToList();
+                sb.Append("<div class=\"bg-fff flex flex-column\" style=\"padding-top:50px; padding-bottom: 30px;\">\n");
+                sb.Append("	<div class=\"txt-center\">\n");
+                sb.Append("		<div class=\"c-d40101\" style=\"font-size:24px\">CUSTOMER CASE</div>\n");
+                sb.Append("		<div class=\"fw-bold\" style=\"font-size:36px;\">案例展示</div>\n");
+                sb.Append("	</div>\n");
+                sb.Append("	<div style=\"margin-top:10px;display: grid;grid-template-columns:50% 50%;\">\n");
+                
+                for (int i = 0; i < customercaseList.Count; i++)
+                {
+                    HtmlDocument htmlDoc = new HtmlDocument();
+                    htmlDoc.LoadHtml(customercaseList[i].cont);
+                    sb.Append("<div style=\"margin:20px;\">\n");
+                    sb.Append("<div class=\"flex\">");
+                    sb.Append("				<img class=\"w100\" style=\"height:200px;\" src=\""+ customercaseList[i].uploadfiles +"\" onclick=\"window.location.href='/cont?id="+ customercaseList[i].id +"'\"/>\n");
+                    sb.Append("</div>");
+                    sb.Append("				<p style=\"margin-top:10px;font-size:0.2rem;\">"+ htmlDoc.DocumentNode.SelectSingleNode("//p").InnerText + "</p>\n");
+                    sb.Append("			</div>\n");
+                }
+                sb.Append("</div>\n");
+                sb.Append("	<div style=\"padding:10px\">\n");
+                sb.Append("		<button class=\"flex jc-center ai-center bg-d40101 martop40 w100 fst24 c-fff\" style=\"height: 50px;border:none;\" onclick=\"{ window.location.href = " + "'list?cid=" + customercaseList[0].classid + "'" + " }\">&#26597;&#30475;&#20840;&#37096;</button>\n");
+                sb.Append("	</div>\n");
+                sb.Append("\n");
+                sb.Append("</div>\n");
             }
             return sb.ToString();
         }
         #endregion
+
+
         #region 首页手机走进奥龙
         public string index_sj_aolong()
         {
@@ -1975,6 +2212,7 @@ namespace ykmWeb.sysHtml
             return sb.ToString();
         }
         #endregion
+
         #region 首页新闻中心
         public string sj_index_news()
         {
@@ -2040,6 +2278,7 @@ namespace ykmWeb.sysHtml
             return sb.ToString();
         }
         #endregion
+
         #region 首页手机联系我们
         public string sj_lxwm()
         {
@@ -2095,6 +2334,9 @@ namespace ykmWeb.sysHtml
         #endregion
 
 
+
+
+
         #region pc分类内容页
         public string info_content(List<view_info> l)
         {
@@ -2104,10 +2346,13 @@ namespace ykmWeb.sysHtml
                 sb.Append("<div class=\"nr\">");
                 sb.Append(l[0].cont);
                 sb.Append("</div>");
+
+
             }
             return sb.ToString();
         }
         #endregion
+
         #region pc_产品列表
         public string pro_list(List<view_info> l)
         {
@@ -2146,6 +2391,7 @@ namespace ykmWeb.sysHtml
             return sb.ToString();
         }
         #endregion
+
         #region pc_环境列表
         public string huanjing_list(List<view_info> l)
         {
@@ -2184,6 +2430,7 @@ namespace ykmWeb.sysHtml
             return sb.ToString();
         }
         #endregion
+
         #region pc_新闻列表
         public string news_list(List<view_info> l)
         {
@@ -2233,6 +2480,7 @@ namespace ykmWeb.sysHtml
             return sb.ToString();
         }
         #endregion
+
         #region pc_视频中心
         public string shipin_list(List<view_info> l)
         {
@@ -2283,6 +2531,7 @@ namespace ykmWeb.sysHtml
             return sb.ToString();
         }
         #endregion
+
         #region sj_产品列表
         public string sj_pro_list(List<view_info> l)
         {
@@ -2323,6 +2572,7 @@ namespace ykmWeb.sysHtml
             return sb.ToString();
         }
         #endregion
+
         #region sj_环境列表
         public string sj_huanjing_list(List<view_info> l)
         {
@@ -2361,6 +2611,7 @@ namespace ykmWeb.sysHtml
             return sb.ToString();
         }
         #endregion
+
         #region sj_新闻列表
         public string sj_news_list(List<view_info> l)
         {
@@ -2399,6 +2650,7 @@ namespace ykmWeb.sysHtml
             return sb.ToString();
         }
         #endregion
+
         #region sj_视频中心
         public string sj_shipin_list(List<view_info> l)
         {
@@ -2443,10 +2695,6 @@ namespace ykmWeb.sysHtml
             return sb.ToString();
         }
         #endregion
-
-
-
-
 
         #region 列表显示形式-产品
         //public string cplist(List<viewinfo> l)
@@ -2495,11 +2743,6 @@ namespace ykmWeb.sysHtml
         //    return sb.ToString();
         //}
         #endregion
-
-
-
-
-
 
         #region 首页产品中心
         public string index_product_center()
@@ -3353,10 +3596,6 @@ namespace ykmWeb.sysHtml
         }
         #endregion
 
-
-      
-
-
         #region 英文版产品列表
         public string pro_list_en(List<view_info> l)
         {
@@ -3404,8 +3643,6 @@ namespace ykmWeb.sysHtml
             return sb.ToString();
         }
         #endregion
-
-    
 
         #region 英文版新闻列表
         public string news_list_en(List<view_info> l)
@@ -3638,9 +3875,6 @@ namespace ykmWeb.sysHtml
         }
         #endregion
 
-
-       
-
         #region 产品内容页
         public string pro_content(List<view_info> l)
         {
@@ -3660,6 +3894,7 @@ namespace ykmWeb.sysHtml
             return sb.ToString();
         }
         #endregion
+
         #region 新闻内容页
         public string news_content(List<view_info> l)
         {

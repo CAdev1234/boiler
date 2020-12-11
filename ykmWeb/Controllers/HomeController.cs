@@ -10,6 +10,7 @@ using System.Linq.Expressions;
 using System.Web.Mvc;
 using ykmWeb.Areas.management.Controllers;
 using ykmWeb.common;
+using HtmlAgilityPack;
 
 namespace ykmWeb.Controllers
 {
@@ -24,17 +25,56 @@ namespace ykmWeb.Controllers
                 do_class_view dcv = new do_class_view();
                 NavLIst nl = new NavLIst(s);
                 createPageHtml cph = new createPageHtml();
+                DalSiteSeo dss = new DalSiteSeo(s);
+                DalInfo di = new DalInfo(s);
+
+                var c = dmc.find(item => item.Caenname == "ljwm");
+                var contactInfo = (di.find(item => item.classid == c.Catalogid).cont).ToString();
+                var htmlDoc = new HtmlDocument();
+                htmlDoc.LoadHtml(contactInfo);
+                var htmlNodes = htmlDoc.DocumentNode.SelectNodes("//p");
+                foreach (var node in htmlNodes)
+                {
+                    if (node.InnerText.IndexOf("联系人") != -1)
+                    {
+                        ViewBag.CONTNAME = node.InnerText.Substring(4);
+                        ViewBag.CONTNAME = ViewBag.CONTNAME.Replace(" ", "");
+                        continue;
+                    }
+                    if (node.InnerText.IndexOf("联系电话") != -1)
+                    {
+                        ViewBag.MOBILE = node.InnerText.Substring(5);
+                        ViewBag.CONTNAME = ViewBag.MOBILE.Replace(" ", "");
+                        continue;
+                    }
+                    if (node.InnerText.IndexOf("座机号码") != -1)
+                    {
+                        ViewBag.TELEPHONE = node.InnerText.Substring(5);
+                        ViewBag.CONTNAME = ViewBag.TELEPHONE.Replace(" ", "");
+                        continue;
+                    }
+                    if (node.InnerText.IndexOf("联系地址") != -1)
+                    {
+                        ViewBag.ADDRESS = node.InnerText.Substring(5);
+                        ViewBag.CONTNAME = ViewBag.ADDRESS.Replace(" ", "");
+                        continue;
+                    }
+                }
+
+                //Get qrcode
+                DalGgw dgw = new DalGgw(s);
+                var qr_code = dgw.FindList(item => item.ggwposition == "botewm", 0, null).FirstOrDefault();
+                ViewBag.QRCODE = qr_code.imgurl;
 
                 ViewBag.seostr = seo.reSeo("index");
                 ViewBag.lanmu = cph.index_lanmu();
                 ViewBag.index_product = cph.index_product();//全部
+                ViewBag.index_customercase = cph.index_customercase();
+
                 ViewBag.ydjcsb = cph.ydjcsb();//硬度检测设备
                 ViewBag.dzzxydj = cph.dzzxydj();//定制在线硬度计
                 ViewBag.jxzysb = cph.jxzysb();//金相制样设备
                 ViewBag.clsysb = cph.clsysb();//材料试验设备
-
-
-
 
                 ViewBag.about_aolong = cph.index_about_aolong();
                 ViewBag.index_news = cph.index_news();
@@ -43,14 +83,9 @@ namespace ykmWeb.Controllers
                 ViewBag.hjzs = hjzs.Catalogname;
                 ViewBag.hjzs_url = nl.getUrlLink(hjzs);
 
-
-
-
                 var yxwl = dmc.find(n => n.Caenname == "yxwl");
                 ViewBag.yxwl = yxwl.Catalogname;
                 ViewBag.yxwl_url = nl.getUrlLink(yxwl);
-
-
 
 
                 ViewBag.lxwm = cph.index_lxwm();
@@ -58,7 +93,10 @@ namespace ykmWeb.Controllers
 
                 ViewBag.sj_lanmu = cph.index_sj_lanmu();
                 ViewBag.sj_pro = cph.index_sj_pro();
-                ViewBag.sj_aolong = cph.index_sj_aolong();
+                ViewBag.sj_aboutus = cph.index_sj_aboutus();
+                ViewBag.sj_customercase = cph.index_sj_customercase();
+
+
                 ViewBag.sj_index_news = cph.sj_index_news();
                 ViewBag.sj_lxwm = cph.sj_lxwm();
                 ViewBag.sjbanner = nl.getIndexBanner_sj();
@@ -114,7 +152,7 @@ namespace ykmWeb.Controllers
                 ViewBag.classtitle = classObj.Catalogname;
                 ViewBag.list_type = classObj.pclisttype;
                 p.mobi_child_str = nl.mobi_child_str(cid);
-                p.mobi_child_str1 = nl.mobi_child_str1(cid);
+                //p.mobi_child_str1 = nl.mobi_child_str1(cid);
                 int topnum = 20;
                 List<info> ilist = new List<info>();
                 p.classList = nl.getMenuClass(classObj);

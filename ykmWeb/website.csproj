@@ -54,6 +54,9 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="HtmlAgilityPack, Version=1.11.28.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlAgilityPack.1.11.28\lib\Net45\HtmlAgilityPack.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -164,6 +167,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\pageContact.cs" />
     <Compile Include="Models\pageIndex.cs" />
     <Compile Include="Models\pageinfocont.cs" />
     <Compile Include="Models\pageMain.cs" />
@@ -784,6 +788,12 @@
     <Content Include="web_images\addressbookicon-white.png" />
     <Content Include="web_images\addressbookicon.png" />
     <Content Include="web_images\back-arrow-red-btn.png" />
+    <Content Include="web_images\banners\aboutus-banner.png" />
+    <Content Include="web_images\banners\contact-banner.png" />
+    <Content Include="web_images\banners\customercase-banner.png" />
+    <Content Include="web_images\banners\news-banner.png" />
+    <Content Include="web_images\banners\product-banner.png" />
+    <Content Include="web_images\banners\tech-banner.png" />
     <Content Include="web_images\bh_12.jpg" />
     <Content Include="web_images\city-img-1.png" />
     <Content Include="web_images\city2-img.png" />
@@ -791,6 +801,7 @@
     <Content Include="web_images\cpfl_slt_12.jpg" />
     <Content Include="web_images\ctn_31.png" />
     <Content Include="web_images\customer-case-1.png" />
+    <Content Include="web_images\customer-case-2.png" />
     <Content Include="web_images\dial-icon.png" />
     <Content Include="web_images\ewm_29.jpg" />
     <Content Include="web_images\gd_08.png" />
@@ -805,6 +816,7 @@
     <Content Include="web_images\left_06.jpg" />
     <Content Include="web_images\left_14.jpg" />
     <Content Include="web_images\location-icon.png" />
+    <Content Include="web_images\logo-text.png" />
     <Content Include="web_images\ly_08.jpg" />
     <Content Include="web_images\medalicon-white.png" />
     <Content Include="web_images\medalicon.png" />
@@ -813,6 +825,7 @@
     <Content Include="web_images\more_tb_32.jpg" />
     <Content Include="web_images\news_18.jpg" />
     <Content Include="web_images\next-arrow-red-btn.png" />
+    <Content Include="web_images\next-right-btn.png" />
     <Content Include="web_images\nextbtn-red.png" />
     <Content Include="web_images\pc_banner_02.jpg" />
     <Content Include="web_images\pc_btn_03.jpg" />
@@ -825,6 +838,9 @@
     <Content Include="web_images\penicon-white.png" />
     <Content Include="web_images\penicon.png" />
     <Content Include="web_images\product1.png" />
+    <Content Include="web_images\product2.png" />
+    <Content Include="web_images\product3.png" />
+    <Content Include="web_images\product4.png" />
     <Content Include="web_images\pro_39.jpg" />
     <Content Include="web_images\qrcode.png" />
     <Content Include="web_images\return_01.jpg" />
